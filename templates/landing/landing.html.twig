@@ -71,211 +71,117 @@
 	</div>
 </div>
 
-<div class="u:flex u:flex-wrap u:md:grid u:md:grid-cols-2 u:gap-24 u:pb-24">
+{#
+  The two main blocks: messages and visitors, then forum, activities and notifications.
+  Each is a card with its tabs on top; the lists are loaded by landing.js.
+  The filter pills keep the "active" class landing.js reads when it reloads a list.
+#}
+{% set loading %}
+    <p class="c-home-list__loading"><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i></p>
+{% endset %}
+<div class="c-home-blocks">
 
-	{# conversations box #}
-	<div class="u:w-full u:flex u:flex-col">
-
-        <ul class="nav nav-tabs landing-dashboard-tabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" aria-controls="conversations" href="#conversations" role="tab"
-                   data-bs-toggle="tab">{{ 'landing.tab.messagesreceived' | trans }}
-                    {% if conversationCount %}
-                        <span
-                            class="badge text-bg-primary u:rounded-8 u:min-w-20 u:px-8 u:h-20 u:inline-flex u:items-center u:justify-center">{{ conversationCount }}</span>
-                    {% endif %}
+    {# messages and visitors #}
+    <section class="c-home-card">
+        <ul class="nav c-home-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link c-home-tabs__link active" aria-controls="conversations" href="#conversations" role="tab" data-bs-toggle="tab">
+                    {{ 'landing.tab.messagesreceived'|trans }}
+                    {% if conversationCount %}<span class="c-home-tabs__count">{{ conversationCount }}</span>{% endif %}
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-controls="visitors" href="#visitors" role="tab"
-                   data-bs-toggle="tab">{{ 'landing.tab.visitors' | trans }}
-                    {% if visitorsCount %}
-                        <span class="badge text-bg-primary u:rounded-8 u:min-w-20 u:px-8 u:h-20 u:inline-flex u:items-center u:justify-center">{{ visitorsCount }}</span>
-                    {% endif %}
+            <li class="nav-item" role="presentation">
+                <a class="nav-link c-home-tabs__link" aria-controls="visitors" href="#visitors" role="tab" data-bs-toggle="tab">
+                    {{ 'landing.tab.visitors'|trans }}
+                    {% if visitorsCount %}<span class="c-home-tabs__count">{{ visitorsCount }}</span>{% endif %}
                 </a>
             </li>
         </ul>
 
-        <div class="o-card o-card--tabbed landing-dashboard-card tab-content u:p-16 u:bg-white">
-
-			{# conversations #}
-			<div role="tabpanel" class="o-tab tab-pane u:h-full active" id="conversations">
-				{# all / unread conversations toggle #}
-				<div class="u:flex u:flex-col u:h-full">
-					<div class="u:flex u:items-center u:mb-16" data-bs-toggle="buttons" role="radiogroup">
-						<label class="o-button o-button--outline btn o-button--full u:me-8{% if messageFilter == 'All' %} active{% endif %}" id="all" role="radio">
-                <input type="radio" name="options" autocomplete="off"
-                     {% if messageFilter == 'All' %}checked{% endif %}
-                     hidden>{{ 'landing.button.all' | trans }}
-						</label>
-              <label
-                   class="o-button btn o-button--outline o-button--full{% if messageFilter == 'Unread' %} active{% endif %}"
-                   id="unread" role="radio">
-                <input type="radio" name="options" autocomplete="off"
-                     {% if messageFilter == 'Unread' %}checked{% endif %}
-                     hidden>{{ 'landing.button.unread' | trans }}
-						</label>
-					</div>
-
-					{# received messages #}
-					<div id="conversationsdisplay" class="c-dashboard">
-						<div class="u:flex u:h-full u:items-center u:justify-center">
-							<p class="u:text-center u:my-24 u:font-300 u:font-display">
-								<i class="fa u:me-8 fa-4x fa-pulse fa-spinner my-3"></i><br>
-								{{ 'dashboard.load.conversations' | trans }}
-							</p>
-						</div>
-					</div>
-
-					{# message buttons #}
-					<div class="u:mt-auto u:mb-16 u:flex u:justify-center">
-						<a href="{{ url( 'conversations', { 'conversationsType': 'conversations' } ) }}" class="u:mt-16 o-button btn">
-                            <i class="fa u:me-8 fa-envelope"></i>{{ 'landing.conversations' | trans }}
-                        </a>
-					</div>
-				</div>
-			</div>
-
-			{# visitors #}
-			<div role="tabpanel" class="o-tab tab-pane u:h-full" id="visitors">
-				<div id="visitorsdisplay">
-                    <div class="u:flex u:items-center u:mb-8 u:w-full">
-                        {{ form_start(radiusForm, {'attr': {'class': 'u:w-full'}})}}
-                        <div class="u:flex u:items-center u:mb-8 u:w-full">
-                            <i class="fa fa-fw fa-bullseye u:text-16 u:text-gray-50 u:me-4"></i>
-                            {{ form_label(radiusForm.radius, null, {'label_attr': {'class': 'u:mb-0 u:me-16'}}) }}
-                            {{ form_widget(radiusForm.radius, {'attr': {'class': 'u:w-full'}}) }}
-                        </div>
-                        {{ form_rest(radiusForm)}}
-                        {{ form_end(radiusForm)}}
-                    </div>
-                    <div id="legsdisplay" class="c-dashboard">
-                        <div class="u:flex u:h-full u:items-center u:justify-center">
-                            <p class="u:text-center u:my-24 u:font-300 u:font-display">
-                                <i class="fa u:me-8 fa-4x fa-pulse fa-spinner my-3"></i><br>
-                                {{ 'bevisited.load.legs' | trans }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="u:flex u:flex-col u:mt-auto u:space-y-8">
-                        <a href="{{ url('visitors') }}" class="o-button o-button--full btn u:mt-16"><i
-                            class="far fa-map u:me-8"></i> {{ 'landing.bevisited.alltrips' | trans }}</a>
-                    </div>
+        <div class="tab-content c-home-card__content">
+            <div role="tabpanel" class="tab-pane c-home-pane active" id="conversations">
+                <div class="c-home-pane__filters" role="radiogroup" aria-label="{{ 'landing.tab.messagesreceived'|trans }}">
+                    <button type="button" class="c-home-pill js-home-filter{% if messageFilter != 'Unread' %} active{% endif %}" id="all" role="radio" aria-checked="{{ messageFilter != 'Unread' ? 'true' : 'false' }}" data-group="messages">{{ 'landing.button.all'|trans }}</button>
+                    <button type="button" class="c-home-pill js-home-filter{% if messageFilter == 'Unread' %} active{% endif %}" id="unread" role="radio" aria-checked="{{ messageFilter == 'Unread' ? 'true' : 'false' }}" data-group="messages">{{ 'landing.button.unread'|trans }}</button>
+                </div>
+                <div id="conversationsdisplay" class="c-home-list">{{ loading }}</div>
+                <div class="c-home-pane__footer">
+                    <a class="c-home-link" href="{{ url('conversations', { conversationsType: 'conversations' }) }}">{{ 'landing.conversations'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>
-		</div>
-	</div>
 
-	{# community box #}
-	<div class="u:w-full u:flex u:flex-col">
-
-		<ul class="nav nav-tabs landing-dashboard-tabs" role="tablist">
-			<li class="nav-item">
-          <a href="#threads" class="nav-link active" aria-controls="threads" role="tab"
-             data-bs-toggle="tab">{{ 'landing.tab.forum' | trans }}</a>
-			</li>
-            <li class="nav-item">
-                <a href="#activities" class="nav-link" aria-controls="activities" role="tab"
-                   data-bs-toggle="tab">{{ 'landing.tab.activities' | trans }}{% if activityCount %} <span
-                        class="badge text-bg-primary u:rounded-8 u:min-w-20 u:px-8 u:h-20 u:inline-flex u:items-center u:justify-center">{{ activityCount }}</span>{% endif %}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-controls="notifications" href="#notifications" role="tab"
-                   data-bs-toggle="tab">{{ 'landing.tab.notifications' | trans }}{% if notificationCount %} <span
-                        class="badge text-bg-primary u:rounded-8 u:min-w-20 u:px-8 u:h-20 u:inline-flex u:items-center u:justify-center">{{ notificationCount }}</span>{% endif %}</a>
-            </li>
-		</ul>
-
-		<div class="o-card o-card--tabbed landing-dashboard-card tab-content u:p-16">
-			{# forum discussions #}
-			<div role="tabpanel" class="o-tab tab-pane u:h-full active" id="threads">
-
-				{# display settings #}
-				<div class="u:flex u:flex-col u:h-full">
-            <div class="u:flex u:items-center u:mb-16" data-bs-toggle="buttons"  role="radiogroup">
-              <label
-                class="o-button btn o-button--outline o-button--full u:me-8{% if forumFilter == 'GroupsAndForums' or forumFilter == 'Groups' %} active{% endif %}"
-                id="groupsButton">
-                <input type="checkbox"
-                     autocomplete="off"{% if forumFilter == 'GroupsAndForums' or forumFilter == 'Groups' %} checked{% endif %}
-                     hidden>{{ 'landing.button.groups' | trans | capitalize }}
-						</label>
-              <label
-                class="o-button btn o-button--outline o-button--full{% if forumFilter == 'GroupsAndForums' or forumFilter == 'Forums' %} active{% endif %}"
-                id="forumButton">
-                <input type="checkbox"
-                     autocomplete="off"{% if forumFilter == 'GroupsAndForums' or forumFilter == 'Forums' %} checked{% endif %}
-                     hidden>{{ 'landing.button.forum' | trans | capitalize }}
-						</label>
-					</div>
-
-					{# forums threads #}
-					<div id="threadsdisplay" class="c-dashboard">
-						<div class="u:flex u:h-full u:items-center u:justify-center">
-							<p class="u:text-center u:my-24 u:font-300 u:font-display">
-								<i class="fa u:me-8 fa-4x fa-pulse fa-spinner my-3"></i><br>
-								{{ 'dashboard.load.threads' | trans }}
-							</p>
-						</div>
-					</div>
-
-					<div class="u:flex u:flex-col u:sm:flex-row u:justify-between u:mt-auto u:py-16 u:space-y-8 u:sm:space-y-0" role="group" aria-label="...">
-              <a href="/forums" class="o-button o-button--full btn"><i
-                  class="fa u:me-8 fa-comments me-1"></i>{{ 'landing.button.discussions' | trans }}</a>
-              <a href="/groups/mygroups" class="o-button o-button--full btn u:mx-0 u:sm:mx-8"><i
-                  class="fa u:me-8 fa-users me-1"></i>{{ 'landing.button.mygroups' | trans }}</a>
-              <a href="/forums/subscriptions" class="o-button o-button--full btn"><i
-                  class="fa u:me-8 fa-check-square me-1"></i>{{ 'landing.button.subscriptions' | trans }}</a>
-					</div>
-				</div>
-
-			</div>
-
-			{# load activities #}
-			<div role="tabpanel" class="o-tab tab-pane u:h-full" id="activities">
-				<div class="u:flex u:items-center u:mb-16" role="group">
-					<a href="/activities/create" class="o-button btn u:me-16">
-						<i class="fa u:me-8 fa-calendar-plus"></i>
-						{{ 'landing.activities.create' | trans }}
-                    </a>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="show_online"
-                        name="show_online" {% if onlineActivities %}checked{% endif %}>
-                        <label class="custom-control-label u:font-display u:font-300 u:leading-24"
-                        for="show_online">{{ 'landing.activities.show.online'|trans }}</label>
-					</div>
-				</div>
-				<div id="activitiesdisplay" class="c-dashboard">
-					<div class="u:flex u:h-full u:items-center u:justify-center">
-						<p class="u:text-center u:my-24 u:font-300 u:font-display">
-							<i class="fa u:me-8 fa-4x fa-pulse fa-spinner my-3"></i><br>
-							{{ 'dashboard.load.activities' | trans }}
-						</p>
-					</div>
-                </div>
-                <div class="u:mt-auto u:mb-16 u:flex u:items-center" role="group">
-                    <a href="/activities" class="o-button btn o-button o-button--full u:me-8 u:mt-16">
-                        <i class="fa u:me-8 fa-map"></i>
-                        {{ 'landing.activities.allactivities' | trans }}</a>
-                    <a href="/activities/myactivities" class="o-button btn o-button--full u:mt-16">
-                        <i class="fa u:me-8 fa-calendar"></i>
-                        {{ 'landing.activities.myactivities' | trans }}</a>
-                </div>
-			</div>
-
-            {# notifications #}
-            <div role="tabpanel" class="o-tab tab-pane u:h-full p-2" id="notifications">
-                <div id="notificationsdisplay" class="c-dashboard">
-                    <div class="u:flex u:h-full u:items-center u:justify-center">
-                        <p class="u:text-center u:my-24 u:font-300 u:font-display">
-                            <i class="fa u:me-8 fa-4x fa-pulse fa-spinner my-3"></i><br>
-                            {{ 'dashboard.load.notifications' | trans }}
-                        </p>
-                    </div>
+            <div role="tabpanel" class="tab-pane c-home-pane" id="visitors">
+                {{ form_start(radiusForm, { attr: { class: 'c-home-pane__radius' } }) }}
+                    <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    {{ form_label(radiusForm.radius, null, { label_attr: { class: 'c-home-pane__radius-label' } }) }}
+                    {{ form_widget(radiusForm.radius, { attr: { class: 'c-home-pane__radius-select' } }) }}
+                    {{ form_rest(radiusForm) }}
+                {{ form_end(radiusForm) }}
+                <div id="legsdisplay" class="c-home-list">{{ loading }}</div>
+                <div class="c-home-pane__footer">
+                    <a class="c-home-link" href="{{ url('visitors') }}"><i class="far fa-map" aria-hidden="true"></i> {{ 'landing.bevisited.alltrips'|trans }}</a>
                 </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </section>
+
+    {# forum, activities and notifications #}
+    <section class="c-home-card">
+        <ul class="nav c-home-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link c-home-tabs__link active" aria-controls="threads" href="#threads" role="tab" data-bs-toggle="tab">{{ 'landing.tab.forum'|trans }}</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link c-home-tabs__link" aria-controls="activities" href="#activities" role="tab" data-bs-toggle="tab">
+                    {{ 'landing.tab.activities'|trans }}
+                    {% if activityCount %}<span class="c-home-tabs__count">{{ activityCount }}</span>{% endif %}
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link c-home-tabs__link" aria-controls="notifications" href="#notifications" role="tab" data-bs-toggle="tab">
+                    {{ 'landing.tab.notifications'|trans }}
+                    {% if notificationCount %}<span class="c-home-tabs__count">{{ notificationCount }}</span>{% endif %}
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content c-home-card__content">
+            <div role="tabpanel" class="tab-pane c-home-pane active" id="threads">
+                {% set showGroups = forumFilter == 'GroupsAndForums' or forumFilter == 'Groups' %}
+                {% set showForums = forumFilter == 'GroupsAndForums' or forumFilter == 'Forums' %}
+                <div class="c-home-pane__filters" role="group" aria-label="{{ 'landing.tab.forum'|trans }}">
+                    <button type="button" class="c-home-pill js-home-filter{% if showGroups %} active{% endif %}" id="groupsButton" aria-pressed="{{ showGroups ? 'true' : 'false' }}">{{ 'landing.button.groups'|trans|capitalize }}</button>
+                    <button type="button" class="c-home-pill js-home-filter{% if showForums %} active{% endif %}" id="forumButton" aria-pressed="{{ showForums ? 'true' : 'false' }}">{{ 'landing.button.forum'|trans|capitalize }}</button>
+                </div>
+                <div id="threadsdisplay" class="c-home-list">{{ loading }}</div>
+                <div class="c-home-pane__footer">
+                    <a class="c-home-link" href="/forums"><i class="fas fa-comments" aria-hidden="true"></i> {{ 'landing.button.discussions'|trans }}</a>
+                    <a class="c-home-link" href="/groups/mygroups"><i class="fas fa-users" aria-hidden="true"></i> {{ 'landing.button.mygroups'|trans }}</a>
+                    <a class="c-home-link" href="/forums/subscriptions"><i class="fas fa-check-square" aria-hidden="true"></i> {{ 'landing.button.subscriptions'|trans }}</a>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane c-home-pane" id="activities">
+                <div class="c-home-pane__filters">
+                    <label class="c-home-switch">
+                        <input type="checkbox" id="show_online" name="show_online"{% if onlineActivities %} checked{% endif %}>
+                        <span class="c-home-switch__track" aria-hidden="true"></span>
+                        {{ 'landing.activities.show.online'|trans }}
+                    </label>
+                    <a class="c-home-pill c-home-pill--action" href="/activities/create"><i class="fa fa-calendar-plus" aria-hidden="true"></i> {{ 'landing.activities.create'|trans }}</a>
+                </div>
+                <div id="activitiesdisplay" class="c-home-list">{{ loading }}</div>
+                <div class="c-home-pane__footer">
+                    <a class="c-home-link" href="/activities"><i class="fa fa-map" aria-hidden="true"></i> {{ 'landing.activities.allactivities'|trans }}</a>
+                    <a class="c-home-link" href="/activities/myactivities"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'landing.activities.myactivities'|trans }}</a>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane c-home-pane" id="notifications">
+                <div id="notificationsdisplay" class="c-home-list">{{ loading }}</div>
+            </div>
+        </div>
+    </section>
 </div>
 
 {# 3 columns #}

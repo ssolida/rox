@@ -33,6 +33,24 @@ document.addEventListener('DOMContentLoaded', function() {
         window.bootstrap.Tab.getOrCreateInstance(tabFromHash).show();
     }
 
+    // Filter pills: All / Unread pick one, Groups / Forum switch on and off.
+    // The lists are reloaded with the pills that carry the "active" class.
+    document.querySelectorAll('.js-home-filter').forEach(function(pill) {
+        pill.addEventListener('click', function() {
+            if (pill.dataset.group === 'messages') {
+                document.querySelectorAll('.js-home-filter[data-group="messages"]').forEach(function(other) {
+                    other.classList.toggle('active', other === pill);
+                    other.setAttribute('aria-checked', other === pill ? 'true' : 'false');
+                });
+                Home.updateMessages();
+            } else {
+                pill.classList.toggle('active');
+                pill.setAttribute('aria-pressed', pill.classList.contains('active') ? 'true' : 'false');
+                Home.updateThreads();
+            }
+        });
+    });
+
     const allRadio = document.getElementById('all');
     if (allRadio) {
         allRadio.addEventListener('change', function() {
