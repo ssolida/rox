@@ -7086,7 +7086,7 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
    ========================================================================== */
 .c-home-blocks { display: grid; gap: 1.5rem; padding-bottom: 1.5rem; }
 @media (min-width: 768px) {
-  .c-home-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .c-home-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
 }
 .c-home-card {
   display: flex;
@@ -7145,8 +7145,12 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   line-height: 1;
 }
 
-.c-home-card__content { flex: 1; min-width: 0; }
+.c-home-card__content { display: flex; flex: 1; flex-direction: column; min-width: 0; }
 .c-home-pane { padding: 1rem 1.75rem 1.4rem; }
+/* Both cards share the row height; the links stay at the bottom of each card. */
+.c-home-card__content > .c-home-pane.active { display: flex; flex: 1; flex-direction: column; }
+.c-home-pane > .c-home-list { flex: 1; }
+.c-home-pane__footer { margin-top: auto; }
 
 .c-home-pane__filters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
 .c-home-pill,
