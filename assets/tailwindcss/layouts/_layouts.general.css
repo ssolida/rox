@@ -7437,6 +7437,12 @@ a.c-home-item:hover .c-home-item__title,
 
 /* Home page: Be involved (donate, volunteer, transparency links) and community news */
 .c-home-section { margin-top: 1.5rem; }
+/* Be involved, News: more room around them and a thin line above, to set them apart. */
+.c-home-section--divided { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid #e2e8f0; }
+.c-home-section--divided:last-child { margin-bottom: 1.5rem; }
+@media (max-width: 639.98px) {
+  .c-home-section--divided { margin-top: 2rem; padding-top: 1.75rem; }
+}
 .c-home-section__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 1rem; }
 .c-home-section__head .c-home-section__title { margin: 0; }
 .c-home-section__title { margin: 0 0 1rem; color: #0f172a; font-size: 1.875rem; font-weight: 700; line-height: 1.2; }
