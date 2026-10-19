@@ -1,4 +1,5 @@
 import {initializeSingleAutoComplete} from '../suggest/locations';
+import './countries';
 
 function onChange(element, result) {
     const locationFullName = document.getElementById('tiny_location_fullname');
