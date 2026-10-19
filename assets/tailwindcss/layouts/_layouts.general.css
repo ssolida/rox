@@ -7995,7 +7995,7 @@ main:has(.l-hello) { margin-top: 0 !important; }
   .l-hello .l-hello__label { color: #c2410c; font-size: 0.9375rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
   .l-hello .l-hello__label::after { content: ","; }
   .l-hello__profile { display: none; }
-  /* Fold / unfold button: light when folded (with the requests badge), dark when open */
+  /* Fold / unfold button: light when folded (with the requests badge), orange when open */
   .l-hello__toggle {
     display: inline-flex !important;
     position: relative;
@@ -8008,8 +8008,8 @@ main:has(.l-hello) { margin-top: 0 !important; }
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: #0f172a;
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ea7a2e;
+    background: #ea7a2e;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #fde6d2;
     color: #fff;
     font-size: 0.9rem;
     transition: background 0.3s, color 0.3s, box-shadow 0.3s;
