@@ -11,7 +11,13 @@
 {{ form_start(respond, { action: path('conversation_reply', { id: current.id }), attr: { class: 'c-inbox-respond c-inbox-respond--guest js-respond', novalidate: 'novalidate', autocomplete: 'off' } }) }}
     {{ form_errors(respond) }}
 
-    <div class="c-inbox-respond__stay c-inbox-respond__stay--grid js-respond-stay"{% if not showStay %} hidden{% endif %}>
+    <div class="c-inbox-respond__stay c-inbox-respond__stay--grid c-inbox-respond__stay--card js-respond-stay"{% if not showStay %} hidden{% endif %}>
+        <div class="c-inbox-respond__stay-head">
+            <p class="c-inbox-respond__stay-title"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'request.respond.change'|trans }}</p>
+            <button type="button" class="c-inbox-respond__stay-close js-respond-stay-close" aria-label="{{ 'modal.close'|trans }}">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
         {{ stay.dates(fields) }}
         {{ stay.travellers(fields.numberOfTravellers) }}
         <div class="c-request-line">
