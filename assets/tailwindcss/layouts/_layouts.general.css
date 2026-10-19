@@ -7595,7 +7595,7 @@ a.c-home-item:hover .c-home-item__title,
   .l-hello__stat + .l-hello__stat {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 0.45rem 0.4rem;
+    gap: 0.2rem 0.4rem;
     align-content: start;
     align-items: center;
     padding: 0.7rem 0.75rem;
@@ -7604,10 +7604,11 @@ a.c-home-item:hover .c-home-item__title,
     background: #fff;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
   }
-  .l-hello__stat-icon { width: 2rem; height: 2rem; border-radius: 0.5rem; font-size: 0.85rem; }
-  .l-hello__stat--alert .l-hello__stat-icon { background: #ea7a2e; color: #fff; }
+  .l-hello__stat--alert .l-hello__stat-text strong { color: #ea7a2e; }
   .l-hello__stat-text { display: contents; }
-  .l-hello__stat-text strong { grid-column: 2; grid-row: 1; justify-self: end; font-size: 1.15rem; }
+  .l-hello__stat-text strong { grid-column: 1 / -1; grid-row: 1; justify-self: start; font-size: 1.25rem; line-height: 1.1; }
+  /* no icon on small screens, the number and its label are enough */
+  .l-hello__stat-icon { display: none; }
   .l-hello__stat-text .l-hello__short { grid-column: 1 / -1; color: #334155; font-size: 0.8125rem; font-weight: 600; line-height: 1.25; }
   .l-hello__stat-go { display: none; }
 }
