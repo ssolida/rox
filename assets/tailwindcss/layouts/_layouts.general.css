@@ -7554,7 +7554,9 @@ main:has(.l-hello) { margin-top: 0 !important; }
   .l-hello__stat + .l-hello__stat { border-top: 1px solid #f3e8dc; border-left: 0; }
 }
 @media (max-width: 575.98px) {
-  .l-hello { margin-top: 0.5rem !important; border-radius: 1.25rem; }
+  /* Same 1rem above the banner, between the blocks and at the bottom */
+  .l-hello { margin: 1rem 0 !important; border-radius: 1.25rem; }
+  .c-home-blocks { gap: 1rem; padding-bottom: 1rem; }
   .l-hello__stats { border-radius: 0 0 1.25rem 1.25rem; }
   .l-hello__long { display: none; }
   .l-hello__short { display: inline; }
