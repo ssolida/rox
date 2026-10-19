@@ -7871,6 +7871,59 @@ main:has(.l-hello) { margin-top: 0 !important; }
   .p-trips-form__actions .p-trips-btn { width: 100%; }
 }
 
+/* Place suggestions under the "Where are you going?" field: a floating card
+   aligned with the search bar, a small map, the place in bold and its region
+   and country below. Picking one opens the search by location (landing.js). */
+.l-hello .l-hello__field .auto-results-wrapper.auto-is-active {
+  top: calc(100% + 0.65rem);
+  right: 0;
+  left: calc(-2.65rem - 1px);
+  z-index: 30;
+  width: auto;
+  margin: 0;
+  padding: 0.35rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+.l-hello .l-hello__field .auto-results-wrapper ul { max-height: 22rem; margin: 0; padding: 0; overflow-y: auto; border: 0; }
+.l-hello .l-hello__field .auto-results-wrapper li { margin: 0; padding: 0.45rem 0.55rem; border: 0; border-radius: 0.75rem; cursor: pointer; }
+.l-hello .l-hello__field .auto-results-wrapper li + li { border-top: 0; }
+.l-hello .l-hello__field .auto-results-wrapper li > div { flex-direction: row-reverse; justify-content: flex-end; gap: 0.8rem; }
+.l-hello .l-hello__field .auto-results-wrapper li > div > div:first-child { min-width: 0; }
+.l-hello .l-hello__field .auto-results-wrapper .auto-selected,
+.l-hello .l-hello__field .auto-results-wrapper li:hover { background: #fff7ed; }
+.l-hello .l-hello__field .auto-results-wrapper li.suggest-group {
+  padding: 0.7rem 0.55rem 0.25rem;
+  border-radius: 0;
+  background: none;
+  color: #94a3b8;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: default;
+  pointer-events: none;
+}
+.l-hello .l-hello__field .suggest-map { flex-shrink: 0; width: 3rem; height: 3rem; overflow: hidden; border-radius: 0.65rem; background: #f1f5f9; }
+.l-hello .l-hello__field .suggest-map .leaflet-control-attribution,
+.l-hello .l-hello__field .suggest-map .leaflet-control-container { display: none; }
+.l-hello .l-hello__field .suggest-name { overflow: hidden; color: #0f172a; font-size: 0.9375rem; font-weight: 600; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.l-hello .l-hello__field .suggest-country { overflow: hidden; color: #64748b; font-size: 0.8125rem; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.l-hello .l-hello__field .auto-results-wrapper .auto-selected .suggest-name,
+.l-hello .l-hello__field .auto-results-wrapper li:hover .suggest-name { color: #c2410c; }
+/* Clear button: a small grey circle instead of the big cross */
+.l-hello .l-hello__field .auto-clear { top: 50%; right: 0.2rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: #f1f5f9; transform: translateY(-50%); }
+.l-hello .l-hello__field .auto-clear:hover { background: #e2e8f0; }
+.l-hello .l-hello__field .auto-clear:before { width: 12px; height: 12px; line-height: 1; }
+.l-hello .l-hello__field .auto-clear.hidden { display: none; }
+.l-hello .l-hello__field .auto-is-loading:after { right: 0.6rem; }
+.l-hello .l-hello__field input { padding-right: 2.25rem !important; }
+@media (max-width: 575.98px) {
+  .l-hello .l-hello__field .auto-results-wrapper.auto-is-active { right: -3.45rem; left: calc(-1.1rem - 1px); }
+}
+
 /* Member suggestions under the "Find a member" field */
 .l-hello__member-form { position: relative; }
 .l-hello__suggest {

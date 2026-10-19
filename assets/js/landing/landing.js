@@ -11,6 +11,16 @@ function onChange(element, result) {
     locationGeonameId.value = result.id;
     locationLatitude.value = result.latitude;
     locationLongitude.value = result.longitude;
+    const locationAdminUnit = document.getElementById('tiny_location_admin_unit');
+    if (locationAdminUnit) {
+        locationAdminUnit.value = result.isAdminUnit;
+    }
+
+    // Picking a place opens the search by location for it straight away.
+    const form = element.form;
+    if (form) {
+        form.requestSubmit(document.getElementById('tiny_updateMap') || undefined);
+    }
 }
 
 initializeSingleAutoComplete("/suggest/locations/all", 'js-location-picker', onChange);
