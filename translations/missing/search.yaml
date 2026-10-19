@@ -4,6 +4,9 @@ search.last.login:
 search.member.since:
     - 'Member since:'
     - Text shown in the search results followed by the member since date
+search.member.for:
+    - 'Member for {duration}'
+    - Shown in each search result, e.g. "Member for 2 years". Keep {duration} intact.
 search.reset.options:
     - 'Reset Options'
     - Label on the button to reset the search options to default values
