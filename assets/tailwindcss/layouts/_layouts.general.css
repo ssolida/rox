@@ -8092,7 +8092,6 @@ main:has(.l-hello) { margin-top: 0 !important; margin-bottom: 0; padding-bottom:
 .l-hosting-switch,
 .l-hello__toggle,
 .l-hello__status,
-.l-hello__stat--profile,
 .l-hello__submit-loupe { display: none !important; }
 
 @media (max-width: 575.98px) {
@@ -8165,7 +8164,6 @@ main:has(.l-hello) { margin-top: 0 !important; margin-bottom: 0; padding-bottom:
   .l-hello__status.is-on::after { background: #3fa45b; }
 
   /* "My profile" row at the bottom of the counters */
-  .l-hello__stat--profile { display: flex !important; }
   .l-hello__me .l-hosting,
   .l-hello__not-setup { grid-column: 1 / -1; justify-self: stretch; margin-top: 0.9rem; }
   .l-hello__me .l-hosting-toggle { display: none; }
@@ -8256,7 +8254,6 @@ main:has(.l-hello) { margin-top: 0 !important; margin-bottom: 0; padding-bottom:
   }
   .l-hello__stat--alert .l-hello__stat-text strong { background: #ea7a2e; color: #fff; }
   .l-hello__stat-go { display: inline-block !important; order: 3; color: #cbd5e1; font-size: 0.75rem; }
-  .l-hello__stat--profile .l-hello__stat-go { margin-left: auto; }
   .l-hello__stat.l-hello__stat--trip { background: #fff3e6; }
   .l-hello__stat.l-hello__stat--trip:hover { background: #fde6d2; }
   .l-hello__stat--trip .l-hello__long { display: none; }
