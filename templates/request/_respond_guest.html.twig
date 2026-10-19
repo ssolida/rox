@@ -43,7 +43,7 @@
         </div>
         <div class="c-inbox-respond__actions">
             {% include 'conversations/_reply_templates.html.twig' with { editor_id: respond.message.vars.id, menu_up: true } only %}
-            <button type="button" class="c-inbox-respond__secondary c-inbox-respond__secondary--dates js-respond-stay-toggle" aria-expanded="{{ showStay ? 'true' : 'false' }}" title="{{ 'request.respond.change'|trans }}">
+            <button type="button" class="c-inbox-respond__secondary c-inbox-respond__secondary--dates js-respond-stay-toggle" aria-expanded="{{ showStay ? 'true' : 'false' }}" aria-label="{{ 'request.respond.change'|trans }}">
                 <i class="fa fa-calendar" aria-hidden="true"></i> <span class="c-inbox-respond__secondary-label">{{ 'request.respond.change'|trans }}</span>
             </button>
             <button type="submit" id="{{ respond.update.vars.id }}" name="{{ respond.update.vars.full_name }}" class="c-inbox-reply__btn c-inbox-respond__send">
