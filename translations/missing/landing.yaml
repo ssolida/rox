@@ -8,3 +8,40 @@ trip.posted.by:
 landing.search.placeholder:
     - 'Search a city, a region...'
     - Placeholder of the search field in the welcome banner of the home page, under "Where are you going?"
+
+landing.viewprofile:
+    - 'View my profile'
+    - Link to the member's own profile, next to their city in the welcome banner of the home page
+landing.search.mode.place:
+    - 'Place'
+    - Switch in the welcome banner of the home page to search around a place
+landing.search.mode.member:
+    - 'Member'
+    - Switch in the welcome banner of the home page to search a member by username
+landing.search.findmember:
+    - 'Find a member'
+    - Title of the member search in the welcome banner of the home page
+landing.search.member.placeholder:
+    - 'Type a username...'
+    - Placeholder of the member search field in the welcome banner of the home page
+landing.search.place.hint:
+    - 'Find hosts, travelers and activities around a place.'
+    - Hint under the place search field in the welcome banner of the home page
+landing.search.member.hint:
+    - 'Start typing and pick a match from the list.'
+    - Hint under the member search field in the welcome banner of the home page
+landing.search.submit:
+    - 'Search'
+    - Button of the search field in the welcome banner of the home page
+landing.stats.requests:
+    - 'stay requests to answer'
+    - Shown after a number in the welcome banner of the home page, e.g. "4 stay requests to answer"
+landing.stats.travelers:
+    - 'travelers coming to {city}'
+    - Shown after a number in the welcome banner of the home page, e.g. "5 travelers coming to Barcelona". Keep {city} intact.
+landing.stats.travelers.area:
+    - 'travelers coming to your area'
+    - Shown after a number in the welcome banner of the home page when the member has no city set
+landing.stats.activities:
+    - 'upcoming activities'
+    - Shown after a number in the welcome banner of the home page, e.g. "3 upcoming activities"

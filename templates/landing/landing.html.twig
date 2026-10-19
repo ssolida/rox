@@ -14,59 +14,111 @@
 {% block content %}
 
 {#
-  Welcome banner as a boarding pass: the member on the stub (avatar, name, city,
-  hosting status), the search on the other side of the perforation.
+  Welcome banner: the member (avatar, name, city, hosting status) on the left, a
+  search on the right that switches between a place and a member, and three
+  counters at the bottom.
 #}
-<div class="l-ticket u:my-32">
-	<div class="l-ticket__stub">
-		{% include 'landing/widget/profilepicturewithaccommodation.html.twig' with { member: app.user } only %}
+{% set homeCity = searchLocation.vars.value.location ?? '' %}
+<div class="l-hello u:my-32">
+	<div class="l-hello__top">
+		<div class="l-hello__me">
+			{% include 'landing/widget/profilepicturewithaccommodation.html.twig' with { member: app.user } only %}
 
-		<div class="l-welcome-strip__info">
-			<p class="l-ticket__label">{{ 'landing.welcomeback'|trans }}</p>
-			<p class="l-ticket__name">{{ macros.profilelink(app.user.Username) }}</p>
-			{% if not app.user.Accommodation is null %}
-				{{ form_start(searchLocation, { action: path('search_locations'), attr: { class: 'l-ticket__city-form' } }) }}
-				<button type="submit" id="home_updateMap" name="home[updateMap]" class="searchsubmit l-welcome-strip__city l-ticket__city btn">
-					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-					{{ searchLocation.vars.value.location }}
-				</button>
-				{% do searchLocation.updateMap.setRendered %}
-				<div class="d-none invisible">{{ form_rest(searchLocation) }}</div>
-				{{ form_end(searchLocation) }}
-				<div class="l-welcome-strip__meta">
+			<div class="l-hello__info">
+				<p class="l-hello__label">{{ 'landing.welcomeback'|trans }}</p>
+				<p class="l-hello__name">{{ macros.profilelink(app.user.Username) }}</p>
+				{% if not app.user.Accommodation is null %}
+					<div class="l-hello__where">
+						{{ form_start(searchLocation, { action: path('search_locations'), attr: { class: 'l-hello__city-form' } }) }}
+						<button type="submit" id="home_updateMap" name="home[updateMap]" class="searchsubmit l-hello__city">
+							<i class="fas fa-location-dot" aria-hidden="true"></i> {{ homeCity }}
+						</button>
+						{% do searchLocation.updateMap.setRendered %}
+						<div class="d-none invisible">{{ form_rest(searchLocation) }}</div>
+						{{ form_end(searchLocation) }}
+						<a class="l-hello__profile" href="{{ path('members_profile', { username: app.user.Username }) }}">{{ 'landing.viewprofile'|trans }}</a>
+					</div>
 					{% include 'landing/widget/accommodation.html.twig' with { member: app.user } only %}
+				{% else %}
+					<p class="l-hello__not-setup">{{ 'profile.created'|trans }}</p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="l-hello__search js-hello-search" data-mode="place">
+			<div class="l-hello__search-head">
+				<p class="l-hello__search-title">
+					<span class="js-hello-mode-place">{{ 'landing.whereyougo'|trans }}</span>
+					<span class="js-hello-mode-member" hidden>{{ 'landing.search.findmember'|trans }}</span>
+				</p>
+				<div class="l-hello__modes" role="radiogroup" aria-label="{{ 'landing.search.submit'|trans }}">
+					<button type="button" class="l-hello__mode active js-hello-mode" data-mode="place" role="radio" aria-checked="true"><i class="fas fa-location-dot" aria-hidden="true"></i> {{ 'landing.search.mode.place'|trans }}</button>
+					<button type="button" class="l-hello__mode js-hello-mode" data-mode="member" role="radio" aria-checked="false"><i class="fas fa-user" aria-hidden="true"></i> {{ 'landing.search.mode.member'|trans }}</button>
 				</div>
-			{% else %}
-				<p class="l-welcome-strip__not-setup">{{ 'profile.created'|trans }}</p>
-			{% endif %}
+			</div>
+
+			<div class="js-hello-mode-place">
+				{{ form_start(tinySearch, { action: path('search_locations'), attr: { class: 'u:w-full' } }) }}
+				<label for="{{ tinySearch.location.vars.id }}" class="visually-hidden">{{ 'landing.whereyougo'|trans }}</label>
+				<div class="l-hello__bar">
+					<i class="fas fa-location-dot l-hello__bar-icon" aria-hidden="true"></i>
+					<div class="auto-search-wrapper max-height l-hello__field">
+						<input type="text"
+							id="{{ tinySearch.location.vars.id }}"
+							name="{{ tinySearch.location.vars.full_name }}"
+							class="l-hello__input js-location-picker"
+							autocomplete="off"
+							placeholder="{{ 'landing.search.placeholder'|trans }}"
+							{% if tinySearch.location.vars.value %}value="{{ tinySearch.location.vars.value }}"{% endif %}
+						>
+					</div>
+					<button type="submit" id="tiny_updateMap" name="{{ tinySearch.updateMap.vars.name }}" class="l-hello__submit">
+						{{ 'landing.search.submit'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div class="u:block">{{ form_errors(tinySearch.location) }}</div>
+				{% do tinySearch.location.setRendered %}
+				{% do tinySearch.updateMap.setRendered %}
+				<div class="d-none" aria-hidden="true">{{ form_rest(tinySearch) }}</div>
+				{{ form_end(tinySearch) }}
+				<p class="l-hello__hint">{{ 'landing.search.place.hint'|trans }}</p>
+			</div>
+
+			<div class="js-hello-mode-member" hidden>
+				<form action="{{ path('search_members') }}" method="get" class="u:w-full">
+					<label for="hello_username" class="visually-hidden">{{ 'landing.search.findmember'|trans }}</label>
+					<div class="l-hello__bar">
+						<i class="fas fa-at l-hello__bar-icon" aria-hidden="true"></i>
+						<div class="l-hello__field">
+							<input type="text" id="hello_username" name="username" class="l-hello__input js-hello-username" list="hello_username_list" autocomplete="off" placeholder="{{ 'landing.search.member.placeholder'|trans }}">
+							<datalist id="hello_username_list"></datalist>
+						</div>
+						<button type="submit" class="l-hello__submit">
+							{{ 'landing.search.submit'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+						</button>
+					</div>
+				</form>
+				<p class="l-hello__hint">{{ 'landing.search.member.hint'|trans }}</p>
+			</div>
 		</div>
 	</div>
 
-	<div class="l-ticket__go">
-		<p class="l-ticket__go-title"><i class="fas fa-plane-departure" aria-hidden="true"></i> {{ 'landing.whereyougo'|trans }}</p>
-		{{ form_start(tinySearch, { action: path('search_locations'), attr: { class: 'u:w-full' } }) }}
-		<label for="{{ tinySearch.location.vars.id }}" class="visually-hidden">{{ 'landing.whereyougo'|trans }}</label>
-		<div class="l-welcome-strip__search-bar l-ticket__search">
-			<div class="auto-search-wrapper max-height loupe">
-				<input type="text"
-					id="{{ tinySearch.location.vars.id }}"
-					name="{{ tinySearch.location.vars.full_name }}"
-					class="l-welcome-strip__search-input js-location-picker"
-					autocomplete="off"
-					placeholder="{{ 'landing.search.placeholder'|trans }}"
-					aria-label="{{ 'landing.whereyougo'|trans }}"
-					{% if tinySearch.location.vars.value %}value="{{ tinySearch.location.vars.value }}"{% endif %}
-				>
-			</div>
-			<button type="submit" id="tiny_updateMap" name="{{ tinySearch.updateMap.vars.name }}" class="l-welcome-strip__search-btn l-ticket__go-btn">
-				{{ 'go'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
-			</button>
-		</div>
-		<div class="u:block">{{ form_errors(tinySearch.location) }}</div>
-		{% do tinySearch.location.setRendered %}
-		{% do tinySearch.updateMap.setRendered %}
-		<div class="d-none" aria-hidden="true">{{ form_rest(tinySearch) }}</div>
-		{{ form_end(tinySearch) }}
+	<div class="l-hello__stats">
+		<a class="l-hello__stat" href="{{ url('conversations', { conversationsType: 'requests' }) }}">
+			<span class="l-hello__stat-icon"><i class="fas fa-bed" aria-hidden="true"></i></span>
+			<span class="l-hello__stat-text"><strong>{{ requestsToAnswerCount }}</strong> {{ 'landing.stats.requests'|trans }}</span>
+			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
+		</a>
+		<a class="l-hello__stat" href="{{ url('visitors') }}">
+			<span class="l-hello__stat-icon"><i class="fas fa-suitcase" aria-hidden="true"></i></span>
+			<span class="l-hello__stat-text"><strong>{{ visitorsCount }}</strong> {% if homeCity %}{{ 'landing.stats.travelers'|trans({ city: homeCity }) }}{% else %}{{ 'landing.stats.travelers.area'|trans }}{% endif %}</span>
+			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
+		</a>
+		<a class="l-hello__stat" href="/activities">
+			<span class="l-hello__stat-icon"><i class="fas fa-calendar-days" aria-hidden="true"></i></span>
+			<span class="l-hello__stat-text"><strong>{{ activityCount }}</strong> {{ 'landing.stats.activities'|trans }}</span>
+			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
+		</a>
 	</div>
 </div>
 

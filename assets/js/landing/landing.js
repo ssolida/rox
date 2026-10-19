@@ -91,6 +91,55 @@ document.addEventListener('DOMContentLoaded', function() {
         el.addEventListener('click', Home.setHostingStatus);
     });
 
+    // Welcome banner: switch the search between a place and a member.
+    const helloSearch = document.querySelector('.js-hello-search');
+    if (helloSearch) {
+        helloSearch.querySelectorAll('.js-hello-mode').forEach(button => {
+            button.addEventListener('click', function() {
+                const mode = this.dataset.mode;
+                helloSearch.dataset.mode = mode;
+                helloSearch.querySelectorAll('.js-hello-mode').forEach(other => {
+                    const isActive = other === this;
+                    other.classList.toggle('active', isActive);
+                    other.setAttribute('aria-checked', isActive ? 'true' : 'false');
+                });
+                helloSearch.querySelectorAll('.js-hello-mode-place').forEach(el => { el.hidden = mode !== 'place'; });
+                helloSearch.querySelectorAll('.js-hello-mode-member').forEach(el => { el.hidden = mode !== 'member'; });
+                const field = helloSearch.querySelector(mode === 'member' ? '.js-hello-username' : '.js-location-picker');
+                if (field) {
+                    field.focus();
+                }
+            });
+        });
+
+        // Suggest usernames while typing, in the input's datalist.
+        const username = helloSearch.querySelector('.js-hello-username');
+        const list = username ? document.getElementById(username.getAttribute('list')) : null;
+        let timer = null;
+        if (username && list) {
+            username.addEventListener('input', function() {
+                clearTimeout(timer);
+                const term = this.value.trim();
+                if (term.length < 2) {
+                    list.replaceChildren();
+                    return;
+                }
+                timer = setTimeout(() => {
+                    fetch('/member/autocomplete/start?term=' + encodeURIComponent(term))
+                        .then(response => response.json())
+                        .then(json => {
+                            list.replaceChildren(...(json.items || []).map(item => {
+                                const option = document.createElement('option');
+                                option.value = item.value;
+                                return option;
+                            }));
+                        })
+                        .catch(() => list.replaceChildren());
+                }, 250);
+            });
+        }
+    }
+
     const showOnline = document.getElementById('show_online');
     if (showOnline) {
         showOnline.addEventListener('change', function() {
