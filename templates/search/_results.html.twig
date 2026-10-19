@@ -16,7 +16,7 @@
             </a>
 
             <div class="p-search-card__body">
-                <a class="p-search-card__name" href="{{ profileUrl }}">{{ displayName }}</a>
+                <a class="p-search-card__name js-search-preview-open" href="{{ profileUrl }}" data-preview="{{ path('search_member_preview', { username: member.username }) }}">{{ displayName }}</a>
 
                 <div class="p-search-card__meta">
                     {%- set facts = [] -%}

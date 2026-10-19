@@ -222,6 +222,28 @@ class SearchController extends AbstractController
     }
 
     /**
+     * A short view of a member, shown over the search results (a drawer on
+     * large screens, a sheet on phones) so the results stay where they are.
+     */
+    #[Route(path: '/search/members/{username:member}/preview', name: 'search_member_preview', methods: ['GET'])]
+    public function memberPreview(Member $member): Response
+    {
+        if (
+            !($member->isBrowsable()
+                || $this->isGranted(Member::ROLE_ADMIN_ADMIN, $member)
+                || $this->isGranted(Member::ROLE_ADMIN_SAFETYTEAM, $member)
+                || $this->isGranted(Member::ROLE_ADMIN_PROFILE, $member)
+            )
+        ) {
+            throw $this->createAccessDeniedException();
+        }
+
+        return $this->render('search/_preview.html.twig', [
+            'member' => $member,
+        ]);
+    }
+
+    /**
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
     #[Route(path: '/search/locations/ajax', name: 'search_members_ajax')]

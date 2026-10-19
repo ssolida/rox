@@ -1,0 +1,82 @@
+{#
+  A short view of a member, loaded into the preview panel of the search results
+  (see search/locations.js): a big photo, who they are, hosting, languages and
+  the start of "about me", with the main actions and a link to the full profile.
+#}
+{% set displayName = member.name is empty ? member.username : member.name %}
+{% set address = member.activeAddress %}
+{% set translations = member.translations %}
+{% set texts = translations[app.request.locale] ?? (translations|length > 0 ? translations|first : {}) %}
+{% set aboutMe = (texts['AboutMe'] ?? '')|replace({'<br />': ' ', '</p>': ' '})|striptags|trim %}
+{% set profileUrl = path('members_profile', { username: member.username }) %}
+{% set facts = [] %}
+{% if member.isAgeVisible %}{% set facts = facts|merge(['searchyearsold'|trans|format(member.age)|striptags]) %}{% endif %}
+{% if member.isGenderVisible %}{% set facts = facts|merge([member.gender|trans]) %}{% endif %}
+{% set languages = [] %}
+{% for level, levelLanguages in member.levelLanguages %}
+    {% for language in levelLanguages %}{% set languages = languages|merge([('lang_' ~ language.ShortCode)|lower|trans]) %}{% endfor %}
+{% endfor %}
+{% set lastActive = member.lastActive|privacy %}
+{% set showLastActive = lastActive and lastActive != 'lastloginprivacy'|trans %}
+
+<div class="p-search-preview__photo">
+    <img src="{{ path('avatar', { username: member.username, size: 500 }) }}" alt="">
+</div>
+
+<div class="p-search-preview__content">
+    <h2 class="p-search-preview__name" id="search-preview-title">{{ displayName }}</h2>
+    {% if displayName != member.username %}<p class="p-search-preview__username">{{ member.username }}</p>{% endif %}
+
+    {% if facts|length or (address and address.location) %}
+        <p class="p-search-preview__facts">
+            {{- facts|join(' · ') -}}
+            {%- if facts|length and address and address.location %} · {% endif -%}
+            {%- if address and address.location -%}
+                {{ address.location.name }}{% if address.location.country %}, {{ address.location.country.name }}{% endif %}
+            {%- endif -%}
+        </p>
+    {% endif %}
+
+    <div class="p-search-preview__hosting">
+        {% if member.accommodation in ['yes', 'no'] %}
+            <span class="p-search-card__host p-search-card__host--{{ member.accommodation }}">{{ ('search.accommodation.' ~ member.accommodation)|trans|trim('.') }}</span>
+        {% endif %}
+        <span class="p-search-preview__beds" title="{{ 'searchcanhostatleast'|trans }}"><i class="fas fa-bed" aria-hidden="true"></i> {{ member.maxGuests }}</span>
+    </div>
+
+    <p class="p-search-preview__since">
+        {{- 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) -}}
+        {%- if showLastActive %} · {{ 'search.last.login'|trans }} {{ lastActive }}{% endif -%}
+    </p>
+
+    {% if app.user != member and member.status != 'PassedAway' %}
+        <div class="p-search-preview__actions">
+            {% if member.accommodation == constant('App\\Doctrine\\AccommodationType::YES') %}
+                <a class="p-search-preview__btn p-search-preview__btn--primary" href="{{ url('hosting_request', { username: member.username }) }}">
+                    <i class="fas fa-bed" aria-hidden="true"></i> {{ 'profile.request.hosting'|trans }}
+                </a>
+            {% endif %}
+            <a class="p-search-preview__btn" href="{{ url('message_new', { username: member.username }) }}">
+                <i class="fas fa-envelope" aria-hidden="true"></i> {{ 'message.send'|trans }}
+            </a>
+        </div>
+    {% endif %}
+
+    {% if aboutMe %}
+        <section class="p-search-preview__section">
+            <h3>{{ 'profile.about.me'|trans }}</h3>
+            <p class="p-search-preview__about">{{ aboutMe|truncate(600) }}</p>
+        </section>
+    {% endif %}
+
+    {% if languages|length %}
+        <section class="p-search-preview__section">
+            <h3>{{ 'languages.spoken'|trans|striptags }}</h3>
+            <p>{{ languages|join(', ') }}</p>
+        </section>
+    {% endif %}
+
+    <a class="p-search-preview__full" href="{{ profileUrl }}">
+        {{ 'search.preview.full'|trans }} <i class="fas fa-chevron-right" aria-hidden="true"></i>
+    </a>
+</div>
