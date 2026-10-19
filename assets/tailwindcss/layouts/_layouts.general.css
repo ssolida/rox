@@ -7578,10 +7578,11 @@ a.c-home-item:hover .c-home-item__title,
   .l-hello .l-hello__city, .l-hello .l-hello__profile { font-size: 0.9375rem; white-space: nowrap; }
 
   .l-hello__search { gap: 0.65rem; }
-  .l-hello__search-head { gap: 0.5rem; }
-  .l-hello .l-hello__search-title { min-width: 0; font-size: 1rem; line-height: 1.2; }
+  .l-hello__search-head { flex-wrap: nowrap; gap: 0.4rem; }
+  .l-hello .l-hello__search-title { min-width: 0; font-size: 0.95rem; line-height: 1.2; white-space: nowrap; }
   .l-hello__modes { gap: 0.3rem; }
-  .l-hello__mode { gap: 0.3rem; padding: 0.3rem 0.6rem; font-size: 0.8125rem; }
+  .l-hello__mode { gap: 0.25rem; padding: 0.3rem 0.55rem; font-size: 0.75rem; }
+  .l-hello__mode svg, .l-hello__mode i { font-size: 0.7rem; }
   .l-hello__bar { padding: 0.25rem 0.25rem 0.25rem 0.95rem; }
   .l-hello .l-hello__input, .l-hello .l-hello__input:focus { padding: 0.55rem 0.25rem !important; }
   .l-hello__submit { justify-content: center; width: 2.6rem; height: 2.6rem; padding: 0; }
@@ -7912,3 +7913,8 @@ a.c-home-item:hover .c-home-item__title,
 }
 @keyframes l-hello-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .l-hello__spinner { animation-duration: 2s; } }
+@media (max-width: 399.98px) {
+  /* very small phones: the pills lose their icon so the title stays on one line */
+  .l-hello__mode svg, .l-hello__mode i { display: none; }
+  .l-hello .l-hello__search-title { font-size: 0.9rem; }
+}
