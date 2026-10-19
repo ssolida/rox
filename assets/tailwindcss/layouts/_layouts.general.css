@@ -6353,7 +6353,24 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
     height: auto;
   }
   body:has(.c-inbox--thread) { overflow: hidden; }
-  .c-inbox-head { padding: 0.65rem 0.75rem; }
+  /* Same orange bar as the list, 64px like the site header. */
+  .c-inbox-head {
+    flex-shrink: 0;
+    height: 64px;
+    padding: 0 0.75rem;
+    border-bottom: 0;
+    background: #f37000;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.12);
+  }
+  .c-inbox-head .c-inbox-avatar--l { width: 2.5rem; height: 2.5rem; }
+  .c-inbox-head__back,
+  .c-inbox-head__back:hover { padding-left: 0.25rem; color: #fff; font-size: 1.125rem; }
+  .c-inbox-head__subject { color: #fff; }
+  .c-inbox-head__name,
+  .c-inbox-head__name:hover,
+  .c-inbox-head__meta { color: rgba(255, 255, 255, 0.9); }
+  .c-inbox-head__menu summary,
+  .c-inbox-head__menu summary:hover { border-color: rgba(255, 255, 255, 0.6); background: transparent; color: #fff; }
   .c-inbox-head__back { display: inline-flex; }
   .c-inbox-head__actions { display: none; }
   .c-inbox-head__menu { display: block; }
