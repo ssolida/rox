@@ -6636,6 +6636,7 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card__host--no { color: #64748b; }
 .p-search-card__messages { position: relative; z-index: 1; color: #64748b; }
 .p-search-card__messages:hover { color: #c2410c; }
+.p-search-card .p-search-card__about { display: -webkit-box; margin: 0.4rem 0 0; overflow: hidden; color: #334155; font-size: 0.875rem; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .p-search-card .p-search-card__since { margin: 0.3rem 0 0; color: #94a3b8; font-size: 0.875rem; }
 /* Beds and comments: a small grey pill at the top right; comments turn orange when there are some */
 .p-search-card__counts { display: inline-flex; flex-shrink: 0; align-items: center; align-self: flex-start; margin-top: 0.15rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: #f1f5f9; color: #334155; font-size: 0.875rem; font-weight: 700; }
@@ -7104,6 +7105,7 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-card__counts { padding: 0.3rem 0.65rem; font-size: 0.8125rem; }
   .p-search-card__count + .p-search-card__count { margin-left: 0.5rem; padding-left: 0.5rem; }
   .p-search-card .p-search-card__since { font-size: 0.8125rem; }
+  .p-search-card .p-search-card__about { display: none; } /* large screens only */
 
   /* Search options as a sheet from the bottom */
   .p-search-options {
