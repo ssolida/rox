@@ -7248,7 +7248,10 @@ a.c-home-item:hover .c-home-item__title,
 .c-home-item__badge { align-self: flex-start; margin: 0.05rem 0; }
 /* Unread message: light orange background, orange dot by the time, bold texts */
 .c-home-item.is-unread { margin: 0 -0.75rem; padding-right: 0.75rem; padding-left: 0.75rem; border-radius: 0.9rem; background: #fff7ed; }
+/* a read message keeps its subject in regular weight, only unread ones are bold */
+#conversationsdisplay .c-home-item__title { font-weight: 400; }
 .c-home-item.is-unread .c-home-item__name,
+#conversationsdisplay .c-home-item.is-unread .c-home-item__title,
 .c-home-item.is-unread .c-home-item__title { font-weight: 700; }
 .c-home-item.is-unread .c-home-item__text { color: #1e293b; font-weight: 600; }
 .c-home-item.is-unread .c-home-item__time { color: #c2410c; font-weight: 600; }
