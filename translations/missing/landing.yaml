@@ -60,3 +60,6 @@ landing.stats.activities.short:
 landing.search.member.searching:
     - 'Searching...'
     - Shown with a loader in the member suggestions of the welcome banner of the home page while the search runs
+landing.hosting.switch:
+    - 'I can host travelers'
+    - Label of the hosting switch in the welcome banner of the home page, on small screens

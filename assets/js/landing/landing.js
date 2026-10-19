@@ -281,7 +281,7 @@ var Home = {
 
     setHostingStatus: function (e) {
         e.preventDefault();
-        const accommodation = this.id;
+        const accommodation = this.dataset.accommodation || this.id;
         
         const formData = new FormData();
         formData.append('accommodation', accommodation);

@@ -43,6 +43,7 @@
 					<p class="l-hello__not-setup">{{ 'profile.created'|trans }}</p>
 				{% endif %}
 			</div>
+			<a class="l-hello__edit" href="{{ path('profile_edit', { username: app.user.Username }) }}" title="{{ 'editmyprofile'|trans }}" aria-label="{{ 'editmyprofile'|trans }}"><i class="fas fa-user-pen" aria-hidden="true"></i></a>
 		</div>
 
 		<div class="l-hello__search js-hello-search" data-mode="place">
@@ -73,7 +74,7 @@
 						>
 					</div>
 					<button type="submit" id="tiny_updateMap" name="{{ tinySearch.updateMap.vars.name }}" class="l-hello__submit">
-						<span class="l-hello__submit-text">{{ 'landing.search.submit'|trans }}</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+						<span class="l-hello__submit-text">{{ 'landing.search.submit'|trans }}</span> <i class="fas fa-arrow-right l-hello__submit-arrow" aria-hidden="true"></i><i class="fas fa-magnifying-glass l-hello__submit-loupe" aria-hidden="true"></i>
 					</button>
 				</div>
 				<div class="u:block">{{ form_errors(tinySearch.location) }}</div>
@@ -94,7 +95,7 @@
 								role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hello_username_list">
 						</div>
 						<button type="submit" class="l-hello__submit">
-							<span class="l-hello__submit-text">{{ 'landing.search.submit'|trans }}</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+							<span class="l-hello__submit-text">{{ 'landing.search.submit'|trans }}</span> <i class="fas fa-arrow-right l-hello__submit-arrow" aria-hidden="true"></i><i class="fas fa-magnifying-glass l-hello__submit-loupe" aria-hidden="true"></i>
 						</button>
 					</div>
 					<ul class="l-hello__suggest js-hello-suggest" id="hello_username_list" role="listbox" hidden
