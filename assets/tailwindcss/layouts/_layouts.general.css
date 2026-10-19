@@ -7252,6 +7252,8 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
 .c-home-pane__footer { margin-top: auto; }
 
 .c-home-pane__filters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+.c-home-pane.is-empty .c-home-pane__filters,
+.c-home-pane.is-empty .c-home-pane__footer { display: none; }
 .c-home-pill,
 .c-home-pill:hover {
   display: inline-flex;

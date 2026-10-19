@@ -208,6 +208,13 @@ var Home = {
                 if (display) {
                     display.outerHTML = messages;
                 }
+                // No messages at all: the filters and the link to the inbox have nothing to offer.
+                // With "Unread" on, keep them so the member can switch back to "All".
+                const list = document.getElementById('conversationsdisplay');
+                const pane = list ? list.closest('.c-home-pane') : null;
+                if (pane) {
+                    pane.classList.toggle('is-empty', all === 1 && list.hasAttribute('data-empty'));
+                }
             });
     },
     updateNotifications: function() {
