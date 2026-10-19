@@ -36,7 +36,6 @@
         <div class="c-inbox-respond__more">
             {% if current.request.status != constant(S ~ 'REQUEST_CANCELLED') %}
                 <button type="submit" id="{{ respond.cancel.vars.id }}" name="{{ respond.cancel.vars.full_name }}" class="c-inbox-respond__secondary c-inbox-respond__secondary--danger"
-                        title="{{ respond.cancel.vars.label|trans }}"
                         data-confirm="{{ 'request.confirm.cancel'|trans }}" data-confirm-ok="{{ respond.cancel.vars.label|trans }}" data-confirm-close="{{ 'modal.close'|trans }}">
                     <i class="fa fa-times" aria-hidden="true"></i> <span class="c-inbox-respond__secondary-label">{{ respond.cancel.vars.label|trans }}</span>
                 </button>
