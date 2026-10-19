@@ -5528,6 +5528,7 @@ main:has(.p-hero) {
   text-decoration: none;
 }
 .c-inbox-head__back:hover { color: #0f172a; text-decoration: none; }
+.c-inbox-list__back { display: none; }
 .c-inbox-head__who { flex: 1; min-width: 0; line-height: 1.3; }
 .c-inbox-head__subject {
   margin: 0;
@@ -6307,7 +6308,21 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
   .c-inbox--list .c-inbox__list { overflow: visible; }
   .c-inbox--list .c-inbox-list__items { overflow: visible; }
   .c-inbox--list .c-inbox-actions { position: sticky; bottom: 0; z-index: 5; box-shadow: 0 -6px 16px rgba(15, 23, 42, 0.08); }
-  .c-inbox-list__head { padding-top: 0; }
+  /* No site header on the inbox: more room for the conversations. Back buttons lead out. */
+  body:has(.c-inbox) { --bw-topbar-offset: 0px; }
+  body:has(.c-inbox) #main_menu { display: none; }
+  .c-inbox-list__head { padding-top: 0.75rem; }
+  .c-inbox-list__back {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 0.5rem 0.25rem 0.5rem 0;
+    margin-right: -0.25rem;
+    color: #334155;
+    text-decoration: none;
+  }
+  .c-inbox-list__back:hover { color: #0f172a; text-decoration: none; }
+  .c-inbox-list__back + .c-inbox-folders { margin-right: auto; }
   .c-inbox-list__title { font-size: 1.5rem; }
 
   /* The conversation is pinned between the top bar and the bottom of the screen,
