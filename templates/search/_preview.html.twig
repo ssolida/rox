@@ -28,6 +28,22 @@
     <img src="{{ path('avatar', { username: member.username, size: 500 }) }}" alt="">
 </div>
 
+{% if pictures|length %}
+    {# Up to 6 gallery pictures; the 6th opens the gallery when there are more #}
+    {% set galleryUrl = url('gallery_show_user_images', { username: member.username }) %}
+    <div class="p-search-preview__gallery" aria-label="{{ 'profile.menu.images'|trans|striptags }}">
+        {% for picture in pictures|slice(0, 6) %}
+            {% if loop.last and pictures|length > 6 %}
+                <a class="p-search-preview__pic p-search-preview__pic--more" href="{{ galleryUrl }}" style="background-image: url('{{ url('gallery_thumbnail', { id: picture.id, t: 2 }) }}')">
+                    <span>+{{ pictures|length - 5 }}</span>
+                </a>
+            {% else %}
+                <a class="p-search-preview__pic" href="{{ galleryUrl }}" style="background-image: url('{{ url('gallery_thumbnail', { id: picture.id, t: 2 }) }}')" aria-label="{{ picture.title|e('html_attr') }}"></a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
 <div class="p-search-preview__content">
     <h2 class="p-search-preview__name" id="search-preview-title">{{ displayName }}</h2>
     {% if displayName != member.username %}<p class="p-search-preview__username">{{ member.username }}</p>{% endif %}
@@ -53,6 +69,25 @@
         {{- 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) -}}
         {%- if showLastActive %} · {{ 'search.last.login'|trans }} {{ lastActive }}{% endif -%}
     </p>
+
+    {# Comments: what other members say matters most, so they get their own block #}
+    {% set commentsTotal = comments_count.total ?? 0 %}
+    <a class="p-search-preview__comments{% if commentsTotal %} has-comments{% endif %}" href="{{ path('profile_comments', { username: member.username }) }}">
+        <span class="p-search-preview__comments-icon"><i class="fas fa-comment" aria-hidden="true"></i></span>
+        <span class="p-search-preview__comments-text">
+            {% if commentsTotal %}
+                <strong>{{ commentsTotal }}</strong> {{ 'profile.comments'|trans|striptags|lower }}
+                <span class="p-search-preview__comments-split">
+                    <span title="{{ 'comment.quality.positive'|trans|striptags }}"><i class="fas fa-thumbs-up" aria-hidden="true"></i> {{ comments_count.positive }}</span>
+                    <span title="{{ 'comment.quality.neutral'|trans|striptags }}"><i class="fas fa-minus" aria-hidden="true"></i> {{ comments_count.neutral }}</span>
+                    <span title="{{ 'comment.quality.negative'|trans|striptags }}"><i class="fas fa-thumbs-down" aria-hidden="true"></i> {{ comments_count.negative }}</span>
+                </span>
+            {% else %}
+                {{ 'profile.no.comments'|trans|striptags }}
+            {% endif %}
+        </span>
+        {% if commentsTotal %}<i class="fas fa-chevron-right p-search-preview__comments-go" aria-hidden="true"></i>{% endif %}
+    </a>
 
     {% if app.user != member and member.status != 'PassedAway' %}
         <div class="p-search-preview__actions">
@@ -81,7 +116,10 @@
         </section>
     {% endif %}
 
+</div>
+
+<div class="p-search-preview__foot">
     <a class="p-search-preview__full" href="{{ profileUrl }}">
-        {{ 'search.preview.full'|trans }} <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        {{ 'search.preview.full'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </a>
 </div>
