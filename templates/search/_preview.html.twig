@@ -6,8 +6,13 @@
 {% set displayName = member.name is empty ? member.username : member.name %}
 {% set address = member.activeAddress %}
 {% set translations = member.translations %}
-{% set texts = translations[app.request.locale] ?? (translations|length > 0 ? translations|first : {}) %}
-{% set aboutMe = (texts['AboutMe'] ?? '')|replace({'<br />': ' ', '</p>': ' '})|striptags|trim %}
+{# "About me" in the reader's language, else in the first language the member wrote it in
+   (the list of languages always starts with an empty "en"). #}
+{% set aboutMe = translations[app.request.locale]['AboutMe'] ?? '' %}
+{% if aboutMe is empty %}
+    {% for texts in translations %}{% if aboutMe is empty and texts['AboutMe'] is defined %}{% set aboutMe = texts['AboutMe'] %}{% endif %}{% endfor %}
+{% endif %}
+{% set aboutMe = aboutMe|replace({'<br />': '\n', '<br>': '\n', '</p>': '\n'})|striptags|trim %}
 {% set profileUrl = path('members_profile', { username: member.username }) %}
 {% set facts = [] %}
 {% if member.isAgeVisible %}{% set facts = facts|merge(['searchyearsold'|trans|format(member.age)|striptags]) %}{% endif %}
@@ -65,7 +70,7 @@
     {% if aboutMe %}
         <section class="p-search-preview__section">
             <h3>{{ 'profile.about.me'|trans }}</h3>
-            <p class="p-search-preview__about">{{ aboutMe|truncate(600) }}</p>
+            <p class="p-search-preview__about">{{ aboutMe|truncate(900)|nl2br }}</p>
         </section>
     {% endif %}
 
