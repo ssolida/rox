@@ -7903,8 +7903,3 @@ a.c-home-item:hover .c-home-item__title,
 }
 @keyframes l-hello-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .l-hello__spinner { animation-duration: 2s; } }
-
-/* Inbox titles ("Messages" over the folders, the folder name over the list) in Noto Sans */
-.c-inbox__nav-title,
-.c-inbox-list__title,
-.c-inbox-list__title h2 { font-family: "Noto Sans", sans-serif; letter-spacing: -0.01em; }
