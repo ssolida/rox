@@ -57,3 +57,6 @@ landing.stats.travelers.short:
 landing.stats.activities.short:
     - 'activities'
     - Short label under a number in the welcome banner of the home page, on small screens
+landing.search.member.searching:
+    - 'Searching...'
+    - Shown with a loader in the member suggestions of the welcome banner of the home page while the search runs
