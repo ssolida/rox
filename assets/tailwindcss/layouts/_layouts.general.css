@@ -7418,6 +7418,8 @@ a.c-home-item:hover .c-home-item__title,
 }
 
 /* Home page: welcome banner. The member and the search on top, three counters below. */
+/* Same space above the banner as below it: the page margin on main would add to it. */
+main:has(.l-hello) { margin-top: 0 !important; }
 .l-hello {
   position: relative;
   border: 1px solid #eef0f3;
