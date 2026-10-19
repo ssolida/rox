@@ -36,7 +36,7 @@
 						{% do searchLocation.updateMap.setRendered %}
 						<div class="d-none invisible">{{ form_rest(searchLocation) }}</div>
 						{{ form_end(searchLocation) }}
-						<a class="l-hello__profile" href="{{ path('members_profile', { username: app.user.Username }) }}">{{ 'landing.viewprofile'|trans }}</a>
+						<a class="l-hello__profile" href="{{ path('members_profile', { username: app.user.Username }) }}"><span class="l-hello__long">{{ 'landing.viewprofile'|trans }}</span><span class="l-hello__short">{{ 'landing.viewprofile.short'|trans }}</span></a>
 					</div>
 					{% include 'landing/widget/accommodation.html.twig' with { member: app.user } only %}
 				{% else %}
@@ -73,7 +73,7 @@
 						>
 					</div>
 					<button type="submit" id="tiny_updateMap" name="{{ tinySearch.updateMap.vars.name }}" class="l-hello__submit">
-						{{ 'landing.search.submit'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+						<span class="l-hello__submit-text">{{ 'landing.search.submit'|trans }}</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
 					</button>
 				</div>
 				<div class="u:block">{{ form_errors(tinySearch.location) }}</div>
@@ -94,7 +94,7 @@
 							<datalist id="hello_username_list"></datalist>
 						</div>
 						<button type="submit" class="l-hello__submit">
-							{{ 'landing.search.submit'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+							<span class="l-hello__submit-text">{{ 'landing.search.submit'|trans }}</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
 						</button>
 					</div>
 				</form>
@@ -104,19 +104,19 @@
 	</div>
 
 	<div class="l-hello__stats">
-		<a class="l-hello__stat" href="{{ url('conversations', { conversationsType: 'requests' }) }}">
+		<a class="l-hello__stat{% if requestsToAnswerCount %} l-hello__stat--alert{% endif %}" href="{{ url('conversations', { conversationsType: 'requests' }) }}">
 			<span class="l-hello__stat-icon"><i class="fas fa-bed" aria-hidden="true"></i></span>
-			<span class="l-hello__stat-text"><strong>{{ requestsToAnswerCount }}</strong> {{ 'landing.stats.requests'|trans }}</span>
+			<span class="l-hello__stat-text"><strong>{{ requestsToAnswerCount }}</strong> <span class="l-hello__long">{{ 'landing.stats.requests'|trans }}</span><span class="l-hello__short">{{ 'landing.stats.requests.short'|trans }}</span></span>
 			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
 		</a>
 		<a class="l-hello__stat" href="{{ url('visitors') }}">
 			<span class="l-hello__stat-icon"><i class="fas fa-suitcase" aria-hidden="true"></i></span>
-			<span class="l-hello__stat-text"><strong>{{ visitorsCount }}</strong> {% if homeCity %}{{ 'landing.stats.travelers'|trans({ city: homeCity }) }}{% else %}{{ 'landing.stats.travelers.area'|trans }}{% endif %}</span>
+			<span class="l-hello__stat-text"><strong>{{ visitorsCount }}</strong> <span class="l-hello__long">{% if homeCity %}{{ 'landing.stats.travelers'|trans({ city: homeCity }) }}{% else %}{{ 'landing.stats.travelers.area'|trans }}{% endif %}</span><span class="l-hello__short">{{ 'landing.stats.travelers.short'|trans }}</span></span>
 			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
 		</a>
 		<a class="l-hello__stat" href="/activities">
 			<span class="l-hello__stat-icon"><i class="fas fa-calendar-days" aria-hidden="true"></i></span>
-			<span class="l-hello__stat-text"><strong>{{ activityCount }}</strong> {{ 'landing.stats.activities'|trans }}</span>
+			<span class="l-hello__stat-text"><strong>{{ activityCount }}</strong> <span class="l-hello__long">{{ 'landing.stats.activities'|trans }}</span><span class="l-hello__short">{{ 'landing.stats.activities.short'|trans }}</span></span>
 			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
 		</a>
 	</div>

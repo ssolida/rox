@@ -45,3 +45,15 @@ landing.stats.travelers.area:
 landing.stats.activities:
     - 'upcoming activities'
     - Shown after a number in the welcome banner of the home page, e.g. "3 upcoming activities"
+landing.viewprofile.short:
+    - 'My profile'
+    - Short link to the member's own profile in the welcome banner of the home page, on small screens
+landing.stats.requests.short:
+    - 'requests to answer'
+    - Short label under a number in the welcome banner of the home page, on small screens
+landing.stats.travelers.short:
+    - 'travelers coming'
+    - Short label under a number in the welcome banner of the home page, on small screens
+landing.stats.activities.short:
+    - 'activities'
+    - Short label under a number in the welcome banner of the home page, on small screens
