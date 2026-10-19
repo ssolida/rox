@@ -5990,6 +5990,16 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
 .c-inbox-respond__secondary i { color: #64748b; }
 /* The host's answer keeps Templates in the button row, the text field stays clean. */
 .c-inbox-respond__editor--plain .c-inbox-respond__text { padding-bottom: 0.5rem; }
+/* Same field as the reply to a plain message: one line that grows with the text. */
+.c-inbox-respond .c-inbox-respond__editor--plain .c-inbox-respond__text {
+  min-height: 0;
+  padding: 0.6rem 1rem;
+  border-radius: 1.25rem;
+  background: #f8fafc;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+.c-inbox-respond .c-inbox-respond__editor--plain .c-inbox-respond__text:focus { border-color: #fdba74; background: #fff; }
 .c-inbox-respond__actions .c-reply-templates { margin: 0; }
 .c-inbox-respond__actions .c-reply-templates .btn-group { width: 100%; }
 .c-inbox-respond__actions .c-reply-templates .o-button {
@@ -6457,7 +6467,7 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
   .c-inbox-thread { padding: 0.75rem; }
   .c-bubble { max-width: 85%; }
   .c-inbox-reply { padding: 0.6rem 0.75rem; }
-  .c-inbox-reply__btn { width: 2.6rem; height: 2.6rem; padding: 0; }
+  .c-inbox-reply__btn { width: 2.75rem; height: 2.75rem; padding: 0; }
   .c-inbox-reply__label { display: none; }
 }
 
