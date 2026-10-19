@@ -2290,14 +2290,27 @@ main:has(.p-hero) {
 .p-toast--info { background: #2563eb; color: #fff; }
 
 /* ── Global toast notifications (bw-toast) ──────────────── */
-/* The empty toast container sits over the top right of the page (it has padding):
-   let clicks through, except on the toasts themselves. */
+/* Toasts are stacked at the top centre of the page, under the menu. The empty
+   container lets clicks through, except on the toasts themselves. */
+.bw-toasts {
+  position: fixed;
+  top: 72px;
+  left: 50%;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100vw - 1.5rem);
+  padding: 0.75rem 0;
+  transform: translateX(-50%);
+}
 #toasts { pointer-events: none; }
 #toasts > * { pointer-events: auto; }
 
 @keyframes bw-toast-in {
-  from { opacity: 0; transform: translateX(1.5rem) scale(0.95); }
-  to   { opacity: 1; transform: translateX(0)       scale(1);    }
+  from { opacity: 0; transform: translateY(-1rem) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);    }
 }
 
 .bw-toast {
@@ -2305,8 +2318,8 @@ main:has(.p-hero) {
   align-items: center;
   gap: 0.75rem;
   padding: 0.875rem 0.875rem 0.875rem 1rem;
-  min-width: 280px;
-  max-width: 360px;
+  min-width: min(280px, 100%);
+  max-width: min(420px, 100%);
   border-radius: 0.875rem;
   background: #fff;
   color: #334155;
