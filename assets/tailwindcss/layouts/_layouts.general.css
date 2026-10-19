@@ -5919,6 +5919,9 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
 .c-inbox-respond__text.is-invalid { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12); }
 .c-inbox-respond__editor .c-reply-templates { position: absolute; right: 0.5rem; bottom: 0.45rem; margin: 0; }
 .c-inbox-respond__options[hidden] { display: none; }
+/* The arrow of "Reply": down while the options are open (they fold down), up when folded. */
+.c-inbox-respond__chevron { margin-left: 0.15rem; font-size: 0.7em; transition: transform 0.2s ease; }
+.js-respond-options-toggle[aria-expanded="false"] .c-inbox-respond__chevron { transform: rotate(180deg); }
 .c-inbox-respond__actions { grid-area: send; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; }
 .c-inbox-respond__secondary {
   display: inline-flex;

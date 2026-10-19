@@ -4,8 +4,8 @@
   By default Send posts a plain message (the "update" button: the answer stays as it is).
   "Reply" opens the options: the dates (when the guest is flexible) and Accept, Maybe
   or Decline; the send button then submits as the picked button. The options start
-  closed (open only when the form came back with an error); while the request waits
-  for an answer, a dot on "Reply" points at them.
+  open and "Reply" folds them away (its arrow shows which way); while the request
+  waits for an answer, a dot on "Reply" points at them.
   Expects respond (HostingRequestHost form view) and current (the newest message).
 #}
 {% import 'request/_request.macros.twig' as stay %}
@@ -25,7 +25,7 @@
     {% set choices = choices|merge([{ key: 'decline', button: respond.decline, icon: 'fa fa-times' }]) %}
 {% endif %}
 
-{% set optionsOpen = not respond.vars.valid %}
+{% set optionsOpen = true %}
 {% set awaitingAnswer = request.status == constant(S ~ 'REQUEST_OPEN') %}
 
 {{ form_start(respond, { action: path('conversation_reply', { id: current.id }), attr: { class: 'c-inbox-respond js-respond', novalidate: 'novalidate', autocomplete: 'off' } }) }}
@@ -98,6 +98,7 @@
                     aria-controls="{{ respond.vars.id }}_options" aria-expanded="{{ optionsOpen ? 'true' : 'false' }}">
                 <i class="fa fa-calendar" aria-hidden="true"></i> {{ 'request.respond.toggle'|trans }}
                 {% if awaitingAnswer %}<span class="c-inbox-respond__dot" title="{{ 'request.status.open'|trans }}"></span>{% endif %}
+                <i class="fas fa-chevron-down c-inbox-respond__chevron" aria-hidden="true"></i>
             </button>
             <button type="submit" id="{{ respond.update.vars.id }}" name="{{ respond.update.vars.full_name }}"
                     class="c-inbox-reply__btn c-inbox-respond__send js-respond-send" data-button="{{ respond.update.vars.full_name }}">
