@@ -6371,6 +6371,21 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
   .c-inbox-head__meta { color: rgba(255, 255, 255, 0.9); }
   .c-inbox-head__menu summary,
   .c-inbox-head__menu summary:hover { border-color: rgba(255, 255, 255, 0.6); background: transparent; color: #fff; }
+  /* Hosting request: a compact strip right under the bar, full width. */
+  .c-inbox-pane__extra:has(> .c-inbox-trip) { padding: 0; }
+  .c-inbox-trip {
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.75rem;
+    border-width: 0 0 1px;
+    border-radius: 0;
+  }
+  .c-inbox-trip__icon,
+  .c-inbox-trip__day { display: none; }
+  .c-inbox-trip__body { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.75rem; }
+  .c-inbox-trip__dates { font-size: 0.9375rem; }
+  .c-inbox-trip__facts { gap: 0.1rem 0.6rem; margin: 0; font-size: 0.75rem; }
+  .c-inbox-trip__status { padding: 0.15rem 0.55rem; font-size: 0.6875rem; }
   .c-inbox-head__back { display: inline-flex; }
   .c-inbox-head__actions { display: none; }
   .c-inbox-head__menu { display: block; }
