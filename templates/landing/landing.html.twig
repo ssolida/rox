@@ -19,7 +19,7 @@
   counters at the bottom.
 #}
 {% set homeCity = searchLocation.vars.value.location ?? '' %}
-<div class="l-hello u:my-32">
+<div class="l-hello">
 	{# On phones the banner folds down to the member line; the choice is kept in the browser. #}
 	<script>try { if (localStorage.getItem('bw.hello.collapsed') === '1') { document.currentScript.parentNode.classList.add('is-collapsed'); } } catch (e) {}</script>
 	<div class="l-hello__top">

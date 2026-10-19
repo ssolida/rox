@@ -7084,7 +7084,8 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
    Home page: the two main blocks (messages and visitors; forum, activities
    and notifications). A white card with its tabs on top and light lists.
    ========================================================================== */
-.c-home-blocks { display: grid; gap: 1.5rem; padding-bottom: 1.5rem; }
+/* Home page spacing: one gap between all blocks, 1.5rem (1rem on phones), above the banner, between the cards and before each section title */
+.c-home-blocks { display: grid; gap: 1.5rem; }
 @media (min-width: 768px) {
   .c-home-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
 }
@@ -7318,10 +7319,10 @@ a.c-home-item:hover .c-home-item__title,
 }
 
 /* Home page: Be involved (donate, volunteer, transparency links) and community news */
-.c-home-section { margin-top: 0; padding: 1.5rem 0 0.5rem; border-top: 1px solid #e2e8f0; }
-.c-home-section__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 1.25rem; }
+.c-home-section { margin-top: 1.5rem; }
+.c-home-section__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 1rem; }
 .c-home-section__head .c-home-section__title { margin: 0; }
-.c-home-section__title { margin: 0 0 1.25rem; color: #0f172a; font-size: 1.875rem; font-weight: 700; line-height: 1.2; }
+.c-home-section__title { margin: 0 0 1rem; color: #0f172a; font-size: 1.875rem; font-weight: 700; line-height: 1.2; }
 .c-home-section__subtitle { margin-left: 0.25rem; color: #64748b; font-size: 1.125rem; font-weight: 600; }
 
 .c-home-involved,
@@ -7451,16 +7452,20 @@ a.c-home-item:hover .c-home-item__title,
 .c-home-news__meta i, .c-home-news__meta svg { margin-right: 0.15rem; }
 
 @media (max-width: 575.98px) {
-  .c-home-section { padding-top: 1.25rem; }
+  .c-home-section { margin-top: 1rem; }
+  body main:has(.l-hello) { padding-bottom: 1rem; }
+  .c-home-involved,
+  .c-home-news { gap: 1rem; }
   .c-home-section__title { font-size: 1.5rem; }
   .c-home-box { padding: 1.25rem; }
 }
 
 /* Home page: welcome banner. The member and the search on top, three counters below. */
 /* Same space above the banner as below it: the page margin on main would add to it. */
-main:has(.l-hello) { margin-top: 0 !important; }
+main:has(.l-hello) { margin-top: 0 !important; margin-bottom: 0; padding-bottom: 1.5rem; }
 .l-hello {
   position: relative;
+  margin: 1.5rem 0;
   border: 1px solid #eef0f3;
   border-radius: 1.5rem;
   background: #fff;
@@ -7595,7 +7600,7 @@ main:has(.l-hello) { margin-top: 0 !important; }
 @media (max-width: 575.98px) {
   /* Same 1rem above the banner, between the blocks and at the bottom */
   .l-hello { margin: 1rem 0 !important; border-radius: 1.25rem; }
-  .c-home-blocks { gap: 1rem; padding-bottom: 1rem; }
+  .c-home-blocks { gap: 1rem; }
   .l-hello__stats { border-radius: 0 0 1.25rem 1.25rem; }
   .l-hello__long { display: none; }
   .l-hello__short { display: inline; }
