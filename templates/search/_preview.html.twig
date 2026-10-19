@@ -1,7 +1,7 @@
 {#
   A short view of a member, loaded into the preview panel of the search results
-  (see search/locations.js): a big photo, who they are, hosting, languages and
-  the start of "about me", with the main actions and a link to the full profile.
+  (see search/locations.js): their pictures, who they are, hosting, comments,
+  languages and the start of "about me", the main actions and the full profile.
 #}
 {% set displayName = member.name is empty ? member.username : member.name %}
 {% set address = member.activeAddress %}
@@ -24,29 +24,34 @@
 {% set lastActive = member.lastActive|privacy %}
 {% set showLastActive = lastActive and lastActive != 'lastloginprivacy'|trans %}
 
-<div class="p-search-preview__photo">
-    <img src="{{ path('avatar', { username: member.username, size: 500 }) }}" alt="">
-</div>
-
+{# The member's own pictures fill the top of the panel (swipe or arrows); the profile picture sits next to the name #}
+{% set galleryUrl = url('gallery_show_user_images', { username: member.username }) %}
 {% if pictures|length %}
-    {# Up to 6 gallery pictures; the 6th opens the gallery when there are more #}
-    {% set galleryUrl = url('gallery_show_user_images', { username: member.username }) %}
-    <div class="p-search-preview__gallery" aria-label="{{ 'profile.menu.images'|trans|striptags }}">
-        {% for picture in pictures|slice(0, 6) %}
-            {% if loop.last and pictures|length > 6 %}
-                <a class="p-search-preview__pic p-search-preview__pic--more" href="{{ galleryUrl }}" style="background-image: url('{{ url('gallery_thumbnail', { id: picture.id, t: 2 }) }}')">
-                    <span>+{{ pictures|length - 5 }}</span>
+    {% set shown = pictures|slice(0, 8) %}
+    <div class="p-search-preview__photos js-preview-photos">
+        <div class="p-search-preview__track js-preview-photos-track">
+            {% for picture in shown %}
+                <a class="p-search-preview__slide" href="{{ galleryUrl }}">
+                    <img src="{{ url('gallery_image', { id: picture.id }) }}" alt="{{ picture.title|e('html_attr') }}"{% if not loop.first %} loading="lazy"{% endif %}>
                 </a>
-            {% else %}
-                <a class="p-search-preview__pic" href="{{ galleryUrl }}" style="background-image: url('{{ url('gallery_thumbnail', { id: picture.id, t: 2 }) }}')" aria-label="{{ picture.title|e('html_attr') }}"></a>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
+        {% if shown|length > 1 %}
+            <button type="button" class="p-search-preview__nav p-search-preview__nav--prev js-preview-photos-prev" aria-label="{{ 'landing.beinformed.previous'|trans }}" disabled><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <button type="button" class="p-search-preview__nav p-search-preview__nav--next js-preview-photos-next" aria-label="{{ 'landing.beinformed.next'|trans }}"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+            <span class="p-search-preview__counter js-preview-photos-counter" data-total="{{ pictures|length }}">1 / {{ pictures|length }}</span>
+        {% endif %}
     </div>
 {% endif %}
 
 <div class="p-search-preview__content">
-    <h2 class="p-search-preview__name" id="search-preview-title">{{ displayName }}</h2>
-    {% if displayName != member.username %}<p class="p-search-preview__username">{{ member.username }}</p>{% endif %}
+    <div class="p-search-preview__who">
+        <img class="p-search-preview__avatar" src="{{ path('avatar', { username: member.username, size: 192 }) }}" alt="">
+        <div>
+            <h2 class="p-search-preview__name" id="search-preview-title">{{ displayName }}</h2>
+            {% if displayName != member.username %}<p class="p-search-preview__username">{{ member.username }}</p>{% endif %}
+        </div>
+    </div>
 
     {% if facts|length or (address and address.location) %}
         <p class="p-search-preview__facts">
@@ -76,7 +81,7 @@
         <span class="p-search-preview__comments-icon"><i class="fas fa-comment" aria-hidden="true"></i></span>
         <span class="p-search-preview__comments-text">
             {% if commentsTotal %}
-                <strong>{{ commentsTotal }}</strong> {{ 'profile.comments'|trans|striptags|lower }}
+                <strong>{{ commentsTotal }}</strong> {{ 'search.preview.comments'|trans({ count: commentsTotal }) }}
                 <span class="p-search-preview__comments-split">
                     <span title="{{ 'comment.quality.positive'|trans|striptags }}"><i class="fas fa-thumbs-up" aria-hidden="true"></i> {{ comments_count.positive }}</span>
                     <span title="{{ 'comment.quality.neutral'|trans|striptags }}"><i class="fas fa-minus" aria-hidden="true"></i> {{ comments_count.neutral }}</span>

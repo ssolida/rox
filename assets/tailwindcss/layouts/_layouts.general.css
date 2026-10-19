@@ -6760,8 +6760,39 @@ body.has-search-overlay { overflow: hidden; }
 }
 .p-search-preview__close:hover { background: #fff; color: #c2410c; }
 .p-search-preview__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-.p-search-preview__photo { aspect-ratio: 1 / 1; max-height: 24rem; overflow: hidden; background: #f1f5f9; }
-.p-search-preview__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The member's pictures: full width, one at a time, swipe or arrows */
+.p-search-preview__photos { position: relative; background: #0f172a; }
+.p-search-preview__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.p-search-preview__track::-webkit-scrollbar { display: none; }
+.p-search-preview__slide { flex: 0 0 100%; aspect-ratio: 4 / 3; scroll-snap-align: start; }
+.p-search-preview__slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.p-search-preview__nav {
+  position: absolute;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: -1.125rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+  color: #0f172a;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.p-search-preview__nav--prev { left: 0.75rem; }
+.p-search-preview__nav--next { right: 0.75rem; }
+.p-search-preview__nav:disabled { opacity: 0; pointer-events: none; }
+.p-search-preview__counter { position: absolute; bottom: 0.75rem; left: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 999px; background: rgba(15, 23, 42, 0.6); color: #fff; font-size: 0.75rem; font-weight: 600; }
+/* Profile picture next to the name */
+.p-search-preview__who { display: flex; align-items: center; gap: 0.9rem; }
+.p-search-preview__avatar { flex-shrink: 0; width: 4.5rem; height: 4.5rem; border-radius: 50%; object-fit: cover; background: #f1f5f9; }
+.p-search-preview__body > .p-search-preview__content:first-child { padding-top: 3.75rem; } /* no pictures: room for the close button */
+.p-search-preview__body > .p-search-preview__content:first-child .p-search-preview__avatar { width: 6rem; height: 6rem; }
 .p-search-preview__content { padding: 1.25rem 1.5rem 1.75rem; }
 .p-search-preview .p-search-preview__name { margin: 0; color: #0f172a; font-size: 1.5rem; font-weight: 700; line-height: 1.25; }
 .p-search-preview .p-search-preview__username { margin: 0.1rem 0 0; color: #94a3b8; font-size: 0.875rem; }
@@ -6795,13 +6826,6 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-preview__section { margin-top: 1.5rem; }
 .p-search-preview__section h3 { margin: 0 0 0.4rem; color: #0f172a; font-family: inherit; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
 .p-search-preview__section p { margin: 0; color: #334155; font-size: 0.9375rem; line-height: 1.55; }
-/* Gallery strip under the big photo */
-.p-search-preview__gallery { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.25rem; padding: 0.25rem; }
-.p-search-preview__pic { display: block; aspect-ratio: 1 / 1; border-radius: 0.4rem; background-color: #f1f5f9; background-position: center; background-size: cover; }
-.p-search-preview__pic--more { position: relative; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; text-decoration: none; }
-.p-search-preview__pic--more::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: rgba(15, 23, 42, 0.5); }
-.p-search-preview__pic--more span { position: relative; }
-.p-search-preview__pic--more:hover { color: #fff; text-decoration: none; }
 /* Comments block: orange when there are some */
 .p-search-preview__comments,
 .p-search-preview__comments:hover { display: flex; align-items: center; gap: 0.85rem; margin-top: 1.1rem; padding: 0.85rem 1rem; border-radius: 0.9rem; background: #f8fafc; color: #64748b; text-decoration: none; }
@@ -6840,8 +6864,8 @@ body.has-search-overlay { overflow: hidden; }
   .p-search-preview__bar { position: relative; flex-shrink: 0; justify-content: flex-end; height: 2.75rem; padding: 0.5rem 0.75rem; background: #fff; pointer-events: auto; touch-action: none; }
   .p-search-preview__grip { position: absolute; top: 0.55rem; left: 50%; display: block; width: 2.5rem; height: 0.25rem; border-radius: 999px; background: #cbd5e1; transform: translateX(-50%); }
   .p-search-preview__close { width: 2rem; height: 2rem; background: #f1f5f9; box-shadow: none; }
-  .p-search-preview__photo { max-height: 50vh; }
   .p-search-preview__content { padding: 1rem 1.25rem 1.5rem; }
+  .p-search-preview__body > .p-search-preview__content:first-child { padding-top: 0.5rem; }
   .p-search-preview .p-search-preview__name { font-size: 1.35rem; }
 }
 @media (prefers-reduced-motion: reduce) {

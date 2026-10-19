@@ -19,6 +19,9 @@ search.preview.full:
 search.preview.error:
     - 'This profile could not be loaded.'
     - Shown in the member preview of the search results when loading fails
+search.preview.comments:
+    - '{count, plural, one {comment} other {comments}}'
+    - After the number of comments in the member preview of the search results, e.g. "12 comments". Copy/paste the English version and translate only the words.
 search.reset.options:
     - 'Reset Options'
     - Label on the button to reset the search options to default values

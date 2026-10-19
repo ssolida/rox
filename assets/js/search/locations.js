@@ -455,6 +455,36 @@ function hidePreview() {
     document.querySelectorAll('.p-search-card.is-previewed').forEach((card) => card.classList.remove('is-previewed'));
 }
 
+// The member's pictures at the top of the preview: swipe, or the arrows, with a "2 / 5" counter.
+function initPreviewPhotos(root) {
+    const photos = root.querySelector('.js-preview-photos');
+    if (!photos) {
+        return;
+    }
+    const track = photos.querySelector('.js-preview-photos-track');
+    const prev = photos.querySelector('.js-preview-photos-prev');
+    const next = photos.querySelector('.js-preview-photos-next');
+    const counter = photos.querySelector('.js-preview-photos-counter');
+    if (!prev || !next) {
+        return;
+    }
+    const slides = track.children.length;
+    const current = () => Math.round(track.scrollLeft / track.clientWidth);
+    const update = () => {
+        const index = current();
+        prev.disabled = index <= 0;
+        next.disabled = index >= slides - 1;
+        if (counter) {
+            counter.textContent = (index + 1) + ' / ' + counter.dataset.total;
+        }
+    };
+    const go = (step) => track.scrollTo({left: (current() + step) * track.clientWidth, behavior: 'smooth'});
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    track.addEventListener('scroll', () => window.requestAnimationFrame(update), {passive: true});
+    update();
+}
+
 function loadPreview(url, card) {
     document.querySelectorAll('.p-search-card.is-previewed').forEach((other) => other.classList.remove('is-previewed'));
     if (card) {
@@ -477,6 +507,7 @@ function loadPreview(url, card) {
         })
         .then((html) => {
             previewBody.innerHTML = html;
+            initPreviewPhotos(previewBody);
         })
         .catch((error) => {
             if (error.name !== 'AbortError') {
