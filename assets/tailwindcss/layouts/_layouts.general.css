@@ -5304,17 +5304,15 @@ main:has(.p-hero) {
   .c-inbox-folders__menu { display: none; }
 }
 
+/* The pills go to a second line when the list is narrow (a conversation open beside it). */
 .c-inbox-filters {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
   padding: 0 1rem 0.85rem;
-  overflow-x: auto;
   border-bottom: 1px solid #f1f5f9;
-  scrollbar-width: none;
 }
-.c-inbox-filters::-webkit-scrollbar { display: none; }
 .c-inbox-filters__pill,
 .c-inbox-filters__pill:hover {
   display: inline-flex;
