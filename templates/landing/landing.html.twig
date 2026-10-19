@@ -184,125 +184,97 @@
     </section>
 </div>
 
-{# 3 columns #}
-<div class="u:flex u:flex-wrap u:md:grid u:md:grid-cols-2 u:gap-24 u:pb-24">
-
-	<div class="u:w-full">
-		<div class="o-card u:mb-24">
-        <h4 class="homehfour">{{ 'landing.beinvolved.title' | trans }}<br/><span
-            class="homesubt">{{ 'landing.beinvolved.donate' | trans }}</span></h4>
-
-        <p class="u:font-display u:text-center u:mb-16 u:font-300 u:text-18">{{ 'landing.beinvolved.goalfor' | trans }} {{ campaign.year }}
-          - {{ campaign.year + 1 }}:
-          <strong>€{{ campaign.yearNeeded }}</strong></p>
-
-			{% if campaign.yearDonated < campaign.yearNeeded %}
-				<div class="progress">
-            <div class="progress-bar" role="progressbar"
-               style="width: {{ (campaign.yearDonated / campaign.yearNeeded) * 100 }}%;"
-               aria-valuenow="{{ campaign.yearDonated }}" aria-valuemin="0"
-               aria-valuemax="{{ campaign.yearNeeded }}"></div>
-				</div>
-			{% else %}
-				<div class="progress">
-            <div class="progress-bar" role="progressbar"
-               style="width: {{ (campaign.yearNeeded / campaign.yearDonated) * 100 }}%"
-               aria-valuenow="campaign.yearNeeded" aria-valuemin="0" aria-valuemax="campaign.yearDonated"
-               title="{{ 'donation.needed'|trans }}"></div>
-            <div class="progress-bar bg-success" role="progressbar"
-               style="width: {{ ((campaign.yearDonated - campaign.yearNeeded) / campaign.yearDonated) * 100 }}%"
-               aria-valuenow="((campaign.yearDonated - campaign.yearNeeded) / campaign.yearDonated)"
-               aria-valuemin="0" aria-valuemax="100" title="{{ 'donation.additional'|trans }}"></div>
-				</div>
-			{% endif %}
-
-			<p class="u:font-display u:text-center u:mt-16 u:text-18">
-				{{ '€ ' ~ campaign.yearDonated ~ '' }}
-          <span class="u:ms-8">{{ 'dashboard.donation.received' | trans }}</span></p>
-			{% if campaign.yearDonated >= campaign.yearNeeded %}
-				<p class="u:font-display u:font-300 u:my-16 u:text-center">{{ 'donation.thank.you'|trans({'amount':'€' ~ campaign.yearNeeded})|raw }}</p>
-			{% endif %}
-        <a href="{{ url('donations') }}"
-            class="btn o-button {% if campaign.yearDonated < campaign.yearNeeded %}o-button--full{% else %}o-button--outline{% endif %} u:my-16"><i
-              class="fa u:me-8 fa-euro-sign"></i> {{ 'landing.beinvolved.pleasedonate' | trans }}</a>
-
-		</div>
-
-		<div class="o-card u:mb-24">
-        <h4 class="homehfour">{{ 'landing.beinvolved.title' | trans }}<br/><span
-            class="homesubt">{{ 'landing.beinvolved.volunteer' | trans }}</span></h4>
-
-			<p class="u:font-display u:font-300">{{ 'landing.beinvolved.intro' | trans }}</p>
-        <p class="u:font-display u:font-300"><a href="{{ url('getactive') }}" class="o-button btn o-button u:mt-16"><i
-              class="fa u:me-8 fa-wrench"></i> {{ 'landing.beinvolved.helpbewelcome' | trans }}</a></p>
-		</div>
-
-		<div class="o-card">
-        <h4 class="homehfour">{{ 'landing.beinformed.title' | trans }}<br/><span
-            class="homesubt">{{ 'landing.beinformed.subtitle' | trans }}</span></h4>
-        <a href="{{ url('about') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-question me-2"></i>{{ 'landing.beinformed.about' | trans }}</a>
-        <a href="{{ url('about_faq') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-question me-2"></i>{{ 'landing.beinformed.faq' | trans }}</a>
-        <a href="{{ url('safety') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-user-shield me-2"></i>{{ 'landing.beinformed.safety' | trans }}</a>
-			<a href="{{ url('newsletters') }}" class="o-button btn o-button
-          text-truncate u:mb-8"><i
-            class="far fa-newspaper me-2"></i>{{ 'newsletters' | trans }}</a>
-        <a href="https://www.bevolunteer.org/" target="_blank"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-bullseye me-2"></i>{{ 'landing.beinformed.bevolunteer' | trans }}</a>
-        <a href="https://www.bevolunteer.org/reports/annual-reports/" target="_blank"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-book me-2"></i>{{ 'landing.beinformed.annualreport' | trans }}</a>
-        <a href="https://www.bevolunteer.org/reports/financial-reports/" target="_blank"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-money-bill-wave-alt me-2"></i>{{ 'landing.beinformed.finances' | trans }}</a>
-        <a href="{{ url('terms_of_use') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-book me-2"></i>{{ 'landing.beinformed.termsofuse' | trans }}</a>
-        <a href="{{ url('privacy_policy') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-book me-2"></i>{{ 'landing.beinformed.privacypolicy' | trans }}</a>
-        <a href="{{ url('data_rights') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-book me-2"></i>{{ 'landing.beinformed.datarights' | trans }}</a>
-        <a href="{{ url('about_credits') }}"
-           class="o-button btn o-button text-truncate u:mb-8"><i
-            class="fa u:me-8 fa-book me-2"></i>{{ 'credits.title' | trans }}</a>
-		</div>
-	</div>
-
-	<div class="u:w-full">
-		<div class="o-card u:h-full">
-        <h4 class="homehfour">{{ 'landing.bwnews.title' | trans }}<br/><span
-            class="homesubt">{{ 'landing.bwnews.subtitle' | trans }}</span></h4>
-        {% for news in communityNews %}
-
-			<h5>
-				<a href="{{ url('communitynews_show', { id: news.id} ) }}">{{ news.title }}</a>
-			</h5>
-			<div class="community-news-wrapper u:font-display u:font-300 u:mb-8">{{ news.text | truncate(200) | raw }}</div>
-
-			<div class="u:flex u:flex-row u:justify-between">
-				<small>{{ news.createdAt.diffForHumans }}</small>
-                {% set commentsCount = news.comments | length %}
-                <small>{{ 'bewelcome_news.nrcomments'|trans({'%commentsCount%': commentsCount}) }}</small>
-			</div>
-            <a href="{{ url('communitynews_show', { id: news.id} ) }}"
-               class="o-button u:my-16"><i class="fas fa-angle-double-right u:me-8"></i>{{ 'label.read.more' | trans }}
-            </a>
-            {% if not loop.last %}
-            <div class="u:mb-16">&nbsp;</div>
+{# Be involved: donate, volunteer, and the transparency links #}
+{% set goalReached = campaign.yearDonated >= campaign.yearNeeded %}
+<section class="c-home-section">
+    <h2 class="c-home-section__title">{{ 'landing.beinvolved.title'|trans }}</h2>
+    <div class="c-home-involved">
+        <div class="c-home-box">
+            <div class="c-home-box__head">
+                <h3 class="c-home-box__title">{{ 'landing.beinvolved.donate'|trans }}</h3>
+                <p class="c-home-box__aside">{{ 'landing.beinvolved.goalfor'|trans }} {{ campaign.year }} - {{ campaign.year + 1 }}: <strong>€{{ campaign.yearNeeded }}</strong></p>
+            </div>
+            {% if goalReached %}
+                {% set goalShare = campaign.yearDonated > 0 ? (campaign.yearNeeded / campaign.yearDonated) * 100 : 100 %}
+                <div class="c-home-progress" role="progressbar" aria-valuenow="{{ campaign.yearDonated }}" aria-valuemin="0" aria-valuemax="{{ campaign.yearNeeded }}">
+                    <span class="c-home-progress__bar" style="width: {{ goalShare }}%;" title="{{ 'donation.needed'|trans }}"></span>
+                    <span class="c-home-progress__bar c-home-progress__bar--extra" style="width: {{ 100 - goalShare }}%;" title="{{ 'donation.additional'|trans }}"></span>
+                </div>
+            {% else %}
+                <div class="c-home-progress" role="progressbar" aria-valuenow="{{ campaign.yearDonated }}" aria-valuemin="0" aria-valuemax="{{ campaign.yearNeeded }}">
+                    <span class="c-home-progress__bar" style="width: {{ campaign.yearNeeded > 0 ? (campaign.yearDonated / campaign.yearNeeded) * 100 : 0 }}%;"></span>
+                </div>
             {% endif %}
-        {% endfor %}
-            <a href="{{ url('communitynews') }}" class="o-button btn u:mt-16"><i
-            class="far fa-newspaper u:me-8"></i> {{ 'landing.bwnews.allnews' | trans }}</a>
-		</div>
-	</div>
+            <p class="c-home-box__amount{% if goalReached %} is-reached{% endif %}"><strong>€ {{ campaign.yearDonated }}</strong> {{ 'dashboard.donation.received'|trans }}</p>
+            {% if goalReached %}
+                <div class="c-home-box__text">{{ 'donation.thank.you'|trans({ amount: '€' ~ campaign.yearNeeded })|raw }}</div>
+            {% endif %}
+            <a class="c-home-button{% if goalReached %} c-home-button--outline{% endif %}" href="{{ url('donations') }}"><i class="fa fa-euro-sign" aria-hidden="true"></i> {{ 'landing.beinvolved.pleasedonate'|trans }}</a>
+        </div>
 
-</div>
+        <div class="c-home-box">
+            <div class="c-home-box__head">
+                <h3 class="c-home-box__title">{{ 'landing.beinvolved.volunteer'|trans }}</h3>
+            </div>
+            <p class="c-home-box__text">{{ 'landing.beinvolved.intro'|trans }}</p>
+            <a class="c-home-button c-home-button--outline" href="{{ url('getactive') }}"><i class="fa fa-wrench" aria-hidden="true"></i> {{ 'landing.beinvolved.helpbewelcome'|trans }}</a>
+        </div>
+
+        <div class="c-home-box">
+            <div class="c-home-box__head">
+                <h3 class="c-home-box__title">{{ 'landing.beinformed.title'|trans }} · {{ 'landing.beinformed.subtitle'|trans }}</h3>
+            </div>
+            {% set infoLinks = [
+                { url: url('about'), icon: 'fa fa-question-circle', label: 'landing.beinformed.about'|trans },
+                { url: url('about_faq'), icon: 'fas fa-comments', label: 'landing.beinformed.faq'|trans },
+                { url: url('safety'), icon: 'fa fa-user-shield', label: 'landing.beinformed.safety'|trans },
+                { url: url('newsletters'), icon: 'far fa-newspaper', label: 'newsletters'|trans },
+            ] %}
+            {% set moreLinks = [
+                { url: 'https://www.bevolunteer.org/', icon: 'fa fa-bullseye', label: 'landing.beinformed.bevolunteer'|trans, external: true },
+                { url: 'https://www.bevolunteer.org/reports/annual-reports/', icon: 'fa fa-book', label: 'landing.beinformed.annualreport'|trans, external: true },
+                { url: 'https://www.bevolunteer.org/reports/financial-reports/', icon: 'fa fa-money-bill-wave-alt', label: 'landing.beinformed.finances'|trans, external: true },
+                { url: url('terms_of_use'), icon: 'fa fa-book', label: 'landing.beinformed.termsofuse'|trans },
+                { url: url('privacy_policy'), icon: 'fa fa-book', label: 'landing.beinformed.privacypolicy'|trans },
+                { url: url('data_rights'), icon: 'fa fa-book', label: 'landing.beinformed.datarights'|trans },
+                { url: url('about_credits'), icon: 'fa fa-book', label: 'credits.title'|trans },
+            ] %}
+            <ul class="c-home-links">
+                {% for link in infoLinks %}
+                    <li><a class="c-home-links__item" href="{{ link.url }}"><i class="{{ link.icon }}" aria-hidden="true"></i><span>{{ link.label }}</span><i class="fa fa-chevron-right c-home-links__chevron" aria-hidden="true"></i></a></li>
+                {% endfor %}
+            </ul>
+            {# The other links stay one click away so the three boxes keep the same height. #}
+            <details class="c-home-links__more">
+                <summary>{{ 'more'|trans|capitalize }}</summary>
+                <ul class="c-home-links">
+                    {% for link in moreLinks %}
+                        <li><a class="c-home-links__item" href="{{ link.url }}"{% if link.external ?? false %} target="_blank" rel="noopener"{% endif %}><i class="{{ link.icon }}" aria-hidden="true"></i><span>{{ link.label }}</span><i class="fa fa-chevron-right c-home-links__chevron" aria-hidden="true"></i></a></li>
+                    {% endfor %}
+                </ul>
+            </details>
+        </div>
+    </div>
+</section>
+
+{# Community news #}
+<section class="c-home-section">
+    <div class="c-home-section__head">
+        <h2 class="c-home-section__title">{{ 'landing.bwnews.title'|trans }} <span class="c-home-section__subtitle">{{ 'landing.bwnews.subtitle'|trans }}</span></h2>
+        <a class="c-home-link" href="{{ url('communitynews') }}"><i class="far fa-newspaper" aria-hidden="true"></i> {{ 'landing.bwnews.allnews'|trans }}</a>
+    </div>
+    <div class="c-home-news">
+        {% for news in communityNews %}
+            <article class="c-home-box c-home-news__item">
+                <h3 class="c-home-news__title"><a href="{{ url('communitynews_show', { id: news.id }) }}">{{ news.title }}</a></h3>
+                <p class="c-home-news__text">{{ news.text|striptags|truncate(110) }}</p>
+                <div class="c-home-news__meta">
+                    <span>{{ news.createdAt.diffForHumans }}</span>
+                    <span><i class="far fa-comment" aria-hidden="true"></i> {{ 'bewelcome_news.nrcomments'|trans({ '%commentsCount%': news.comments|length }) }}</span>
+                </div>
+                <a class="c-home-link" href="{{ url('communitynews_show', { id: news.id }) }}">{{ 'label.read.more'|trans }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
+        {% endfor %}
+    </div>
+</section>
 {% endblock content %}
