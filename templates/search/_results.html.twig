@@ -37,7 +37,9 @@
                 {%- if member.isAgeVisible %}{% set facts = facts|merge(['searchyearsold'|trans|format(member.age)|striptags]) %}{% endif -%}
                 {%- if member.isGenderVisible %}{% set facts = facts|merge([member.gender|trans]) %}{% endif -%}
                 {%- if facts|length %}<span>{{ facts|join(', ') }}</span>{% endif -%}
-                {%- if address and address.location -%}
+                {#- The place is left out when it is the place searched for: only nearby places are shown. -#}
+                {%- set searchedPlaceId = searchParams.location_geoname_id ?? null -%}
+                {%- if address and address.location and (searchedPlaceId is empty or address.location.geonameId != searchedPlaceId) -%}
                     {%- if facts|length %}<span class="p-search-card__dot" aria-hidden="true">·</span>{% endif -%}
                     <span class="p-search-card__place"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                         {{- address.location.name }}{% if address.location.country %}, {{ address.location.country.name }}{% endif %}</span>

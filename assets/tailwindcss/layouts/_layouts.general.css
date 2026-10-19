@@ -6637,6 +6637,7 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card__messages { color: #64748b; font-size: 0.875rem; }
 .p-search-card__badge { margin-left: auto; }
 .p-search-card__meta { grid-area: meta; display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin-top: 0.15rem; color: #334155; font-size: 0.875rem; }
+.p-search-card__meta:empty { display: none; }
 .p-search-card__place i { margin-right: 0.3rem; color: #f37000; }
 .p-search-card__dot { color: #94a3b8; }
 .p-search-card__about {
