@@ -33,7 +33,8 @@ class PlacesModel
      */
     public function getCountriesByContinent(string $locale): array
     {
-        return $this->cache->get('places.countries.' . preg_replace('/[^a-z_-]/i', '', $locale), function (ItemInterface $item) use ($locale): array {
+        $key = 'places.countries.' . preg_replace('/[^a-z_-]/i', '', $locale);
+        $countries = $this->cache->get($key, function (ItemInterface $item) use ($locale): array {
             $item->expiresAfter(3600);
 
             $connection = $this->connection();
@@ -75,6 +76,12 @@ class PlacesModel
 
             return array_filter($continents);
         });
+        // Don't keep an empty list for an hour (a database being filled, for example).
+        if ([] === $countries) {
+            $this->cache->delete($key);
+        }
+
+        return $countries;
     }
 
     /**
