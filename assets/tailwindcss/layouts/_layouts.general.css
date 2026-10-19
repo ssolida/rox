@@ -6311,6 +6311,7 @@ form.c-inbox-reply textarea.c-inbox-reply__field { border-radius: 1.25rem; }
   /* No site header on the inbox: more room for the conversations. Back buttons lead out. */
   body:has(.c-inbox) { --bw-topbar-offset: 0px; }
   body:has(.c-inbox) #main_menu { display: none; }
+  body:has(.c-inbox) main { margin-top: 0; padding-top: 0; }
   /* In its place, an orange bar of the same height: back, folder title, select button. */
   .c-inbox-list__head {
     position: sticky;
