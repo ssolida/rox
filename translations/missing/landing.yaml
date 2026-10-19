@@ -5,3 +5,6 @@ trip.posted.by:
     - 'posted by {username}'
     - shows who posted the trip as part of the item on the landing page. Make sure to keep the {username} part intact.
 
+landing.search.placeholder:
+    - 'Search a city, a region...'
+    - Placeholder of the search field in the welcome banner of the home page, under "Where are you going?"
