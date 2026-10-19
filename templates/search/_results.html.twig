@@ -47,8 +47,15 @@
                     {% endif %}
                 </div>
 
-                {% if member.created %}
-                    <p class="p-search-card__since">{{ 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) }}</p>
+                {# The last activity is left out when it is unknown or kept private (active in the last 7 days). #}
+                {% set lastActive = member.lastActive|privacy %}
+                {% set showLastActive = lastActive and lastActive != 'lastloginprivacy'|trans %}
+                {% if member.created or showLastActive %}
+                    <p class="p-search-card__since">
+                        {%- if member.created %}<span>{{ 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) }}</span>{% endif -%}
+                        {%- if member.created and showLastActive %}<span aria-hidden="true"> · </span>{% endif -%}
+                        {%- if showLastActive %}<span>{{ 'search.last.login'|trans }} {{ lastActive }}</span>{% endif -%}
+                    </p>
                 {% endif %}
             </div>
 
