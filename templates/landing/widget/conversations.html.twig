@@ -16,7 +16,7 @@
             <span class="c-home-item__body">
                 <span class="c-home-item__top">
                     <span class="c-home-item__name">{{ message.sender ? message.sender.username : 'BeWelcome' }}</span>
-                    <span class="c-home-item__time" title="{{ message.created.toDateTimeString }}">{{ message.created.diffForHumans }}</span>
+                    <span class="c-home-item__time" title="{{ message.created.toDateTimeString }}">{{ message.created.diffForHumans }}{% if unread %}<span class="c-home-item__dot" aria-label="{{ 'conversations.unread'|trans }}"></span>{% endif %}</span>
                 </span>
                 {% if request %}
                     {% set kindIcon = request.inviteForLeg is null ? 'fa-bed' : 'fa-handshake' %}

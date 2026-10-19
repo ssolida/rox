@@ -7246,9 +7246,13 @@ a.c-home-item:hover .c-home-item__title,
 .c-home-item__text--strong { color: #0f172a; font-weight: 600; }
 .c-home-item__text--strong:hover { color: #c2410c; }
 .c-home-item__badge { align-self: flex-start; margin: 0.05rem 0; }
+/* Unread message: light orange background, orange dot by the time, bold texts */
+.c-home-item.is-unread { margin: 0 -0.75rem; padding-right: 0.75rem; padding-left: 0.75rem; border-radius: 0.9rem; background: #fff7ed; }
 .c-home-item.is-unread .c-home-item__name,
-.c-home-item.is-unread .c-home-item__title { font-weight: 800; }
+.c-home-item.is-unread .c-home-item__title { font-weight: 700; }
 .c-home-item.is-unread .c-home-item__text { color: #1e293b; font-weight: 600; }
+.c-home-item.is-unread .c-home-item__time { color: #c2410c; font-weight: 600; }
+.c-home-item__dot { display: inline-block; width: 0.55rem; height: 0.55rem; margin-left: 0.4rem; border-radius: 50%; background: #f37000; vertical-align: 0.05rem; }
 .c-home-item__meta { margin: 0; color: #64748b; font-size: 0.8125rem; }
 .c-home-item__meta + .c-home-item__meta { color: #94a3b8; }
 .c-home-item__meta i, .c-home-item__meta svg { margin-right: 0.15rem; color: #94a3b8; font-size: 0.75rem; }
