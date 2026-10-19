@@ -6726,10 +6726,10 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-preview__backdrop { display: none; }
 .p-search-preview {
   position: fixed;
-  top: calc(var(--bw-topbar-offset, 64px) + var(--p-search-top-height, 0px));
+  top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1010; /* above the map and its controls, below the top bar */
+  z-index: 2045; /* the whole height of the window, over the top bar */
   display: flex;
   flex-direction: column;
   width: min(27rem, 100%);
