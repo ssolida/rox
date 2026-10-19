@@ -7590,7 +7590,9 @@ a.c-home-item:hover .c-home-item__title,
   .l-hello .l-hello__hint { display: none; }
 
   /* three small cards in a row: icon and number on top, label below */
-  .l-hello__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; padding: 0.6rem; border-top: 0; }
+  /* two cards only: the activities counter is left out on small screens */
+  .l-hello__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; padding: 0.6rem; border-top: 0; }
+  .l-hello__stat--activities { display: none !important; }
   .l-hello__stat,
   .l-hello__stat + .l-hello__stat {
     display: grid;

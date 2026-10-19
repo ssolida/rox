@@ -117,7 +117,7 @@
 			<span class="l-hello__stat-text"><strong>{{ visitorsCount }}</strong> <span class="l-hello__long">{% if homeCity %}{{ 'landing.stats.travelers'|trans({ city: homeCity }) }}{% else %}{{ 'landing.stats.travelers.area'|trans }}{% endif %}</span><span class="l-hello__short">{{ 'landing.stats.travelers.short'|trans }}</span></span>
 			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
 		</a>
-		<a class="l-hello__stat" href="/activities">
+		<a class="l-hello__stat l-hello__stat--activities" href="/activities">
 			<span class="l-hello__stat-icon"><i class="fas fa-calendar-days" aria-hidden="true"></i></span>
 			<span class="l-hello__stat-text"><strong>{{ activityCount }}</strong> <span class="l-hello__long">{{ 'landing.stats.activities'|trans }}</span><span class="l-hello__short">{{ 'landing.stats.activities.short'|trans }}</span></span>
 			<i class="fas fa-chevron-right l-hello__stat-go" aria-hidden="true"></i>
