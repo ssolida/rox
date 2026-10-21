@@ -6814,7 +6814,6 @@ body.has-search-overlay { overflow: hidden; }
   grid-template-areas:
     "avatar head host"
     "avatar about about"
-    "avatar occupation occupation"
     "avatar foot foot";
   align-content: start;
   column-gap: 1.25rem;
@@ -6833,10 +6832,26 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card__name:hover { color: #0f172a; font-family: var(--font-signika, "Signika", sans-serif); font-size: 1.3rem; font-weight: 700; line-height: 1.25; text-decoration: none; }
 .p-search-card__name::after { content: ""; position: absolute; inset: 0; }
 .p-search-card__username { color: #64748b; font-size: 0.9375rem; }
-.p-search-card__meta { margin: 0.15rem 0 0; overflow: hidden; color: #475569; font-size: 1rem; text-overflow: ellipsis; white-space: nowrap; }
-.p-search-card__meta:empty { display: none; }
-.p-search-card__place i,
-.p-search-card__place svg { margin-right: 0.15rem; color: #f37000; }
+.p-search-card__meta { margin: 0.2rem 0 0; overflow: hidden; color: #64748b; font-size: 0.9375rem; text-overflow: ellipsis; white-space: nowrap; }
+.p-search-card__meta i,
+.p-search-card__meta svg { margin-right: 0.2rem; color: #f37000; }
+/* Gender and age: one small badge next to the name, tinted by gender. */
+.p-search-card__who {
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.p-search-card__who--female { background: #fce7f3; color: #be185d; }
+.p-search-card__who--male { background: #e0f2fe; color: #0369a1; }
+.p-search-card__who--other { background: #ede9fe; color: #6d28d9; }
 /* Hosting: a round tinted icon at the top right on larger screens, next to the name on phones. */
 .p-search-card__head .p-search-card__host { display: none; }
 .p-search-card__host { display: inline-flex; align-items: center; justify-content: center; font-size: 1.05rem; }
@@ -6846,8 +6861,9 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card > .p-search-card__host--yes { background: #dcfce7; }
 .p-search-card > .p-search-card__host--no { background: #eef2f7; }
 .p-search-card .p-search-card__about { display: -webkit-box; grid-area: about; margin: 0.55rem 0 0; overflow: hidden; color: #334155; font-size: 1rem; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-.p-search-card .p-search-card__occupation { grid-area: occupation; margin: 0.5rem 0 0; overflow: hidden; color: #64748b; font-size: 0.9375rem; text-overflow: ellipsis; white-space: nowrap; }
-.p-search-card__occupation strong { color: #334155; font-weight: 700; }
+.p-search-card .p-search-card__occupation { margin: 0.25rem 0 0; overflow: hidden; color: #334155; font-size: 0.9375rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.p-search-card__occupation i,
+.p-search-card__occupation svg { margin-right: 0.3rem; color: #94a3b8; }
 .p-search-card__foot { display: flex; flex-wrap: wrap; grid-area: foot; align-items: center; gap: 0.35rem 1.5rem; margin-top: 0.9rem; padding-top: 0.85rem; border-top: 1px solid #eef0f3; color: #64748b; font-size: 0.9375rem; }
 .p-search-card__comments { display: inline-flex; align-items: center; gap: 0.45rem; color: #64748b; font-weight: 600; }
 .p-search-card__comments.has-comments,
@@ -7394,8 +7410,10 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-card {
     grid-template-columns: 5rem minmax(0, 1fr) auto;
     grid-template-areas:
-      "avatar head pill"
+      "avatar title pill"
       "avatar foot foot"
+      "avatar meta meta"
+      "avatar occupation occupation"
       "about about about";
     column-gap: 0.9rem;
     padding: 1rem;
@@ -7407,14 +7425,17 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-card__avatar { align-self: center; }
   .p-search-card__avatar img { width: 5rem; height: 5rem; }
   .p-search-card__name { font-size: 1.15rem; }
+  /* The name line, last login, place and occupation each take a row next to the photo. */
+  .p-search-card__head { display: contents; }
+  .p-search-card__title { grid-area: title; align-self: center; }
+  .p-search-card__meta { grid-area: meta; }
+  .p-search-card .p-search-card__occupation { grid-area: occupation; margin-top: 0.3rem; font-size: 0.875rem; }
+  .p-search-card__who { font-size: 0.8125rem; }
   .p-search-card__username,
   .p-search-card > .p-search-card__host,
-  .p-search-card .p-search-card__occupation,
   .p-search-card__comments { display: none; }
   .p-search-card__head .p-search-card__host { display: inline-flex; align-self: center; font-size: 1rem; }
-  .p-search-card__meta { font-size: 0.9375rem; }
-  .p-search-card__place i,
-  .p-search-card__place svg { display: none; }
+  .p-search-card__meta { font-size: 0.875rem; }
   .p-search-card__foot { align-self: start; margin-top: 0.15rem; padding-top: 0; border-top: 0; font-size: 0.8125rem; }
   .p-search-card__activity { color: #94a3b8; }
   /* "Member for …" takes room on phones: only the last login is kept. */
