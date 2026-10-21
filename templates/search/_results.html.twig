@@ -81,14 +81,14 @@
                 <span class="p-search-card__comments{% if commentCount %} has-comments{% endif %}">
                     <i class="fas fa-comments" aria-hidden="true"></i> {{ commentCount }} {{ 'search.preview.comments'|trans({ count: commentCount }) }}
                 </span>
-                <span class="p-search-card__activity">
+                <span class="p-search-card__activity{{ lastActive ? '' : ' is-since-only' }}">
                     <i class="far fa-clock" aria-hidden="true"></i>
                     {%- if lastActive %}
                         <span>{{ 'search.last.login'|trans|trim(': ') }} <strong>{{ lastActive }}</strong></span>
                     {%- endif -%}
                     {%- if member.created -%}
-                        {%- if lastActive %}<span class="p-search-card__dot" aria-hidden="true">·</span>{% endif -%}
-                        <span>{{ 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) }}</span>
+                        {%- if lastActive %}<span class="p-search-card__dot p-search-card__since-dot" aria-hidden="true">·</span>{% endif -%}
+                        <span class="p-search-card__since">{{ 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) }}</span>
                     {%- endif -%}
                 </span>
             </div>

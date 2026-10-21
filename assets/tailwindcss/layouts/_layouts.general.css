@@ -7397,6 +7397,10 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-card__place svg { display: none; }
   .p-search-card__foot { align-self: start; margin-top: 0.15rem; padding-top: 0; border-top: 0; font-size: 0.8125rem; }
   .p-search-card__activity { color: #94a3b8; }
+  /* "Member for …" takes room on phones: only the last login is kept. */
+  .p-search-card__since,
+  .p-search-card__since-dot,
+  .p-search-card__activity.is-since-only { display: none; }
   .p-search-card__activity strong { color: inherit; font-weight: 400; }
   .p-search-card .p-search-card__about { margin-top: 0.75rem; font-size: 0.9375rem; }
   .p-search-card__comments-pill {
