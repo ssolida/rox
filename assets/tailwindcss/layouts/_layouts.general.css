@@ -7435,10 +7435,10 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search.is-map-view .p-search-results { padding-bottom: 0.75rem; }
   .p-search.is-map-view .p-search-results__head { margin-bottom: 0; }
 
-  /* Phones: white rows across the whole width split by a grey band. Photo with the hosting
+  /* Phones: white rows across the whole width split by a thin grey line. Photo with the hosting
      badge on it; name and gender/age, occupation in orange, last login and membership;
      "About me" under it with the comments next to it. */
-  .p-search-results__cards { gap: 0.5rem; margin: 0 -1rem; border-top: 0; background: #f1f5f9; }
+  .p-search-results__cards { gap: 1px; margin: 0 -1rem; border-top: 0; background: #e2e8f0; }
   .p-search-card {
     grid-template-columns: 5.25rem minmax(0, 1fr) auto;
     grid-template-areas:
