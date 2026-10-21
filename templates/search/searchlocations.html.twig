@@ -91,6 +91,14 @@
                 <i class="fas fa-sliders" aria-hidden="true"></i>
                 {% if activeFilters %}<span class="p-search__options-count">{{ activeFilters }}</span>{% endif %}
             </button>
+
+            <label class="p-search__map-switch" for="{{ form.show_map.vars.id }}">
+                <span>{{ form.show_map.vars.label|trans }}</span>
+                <input type="checkbox" role="switch" class="show_map js-search-map-switch" id="{{ form.show_map.vars.id }}"
+                       name="{{ form.show_map.vars.full_name }}" value="1"{% if showMap %} checked{% endif %}>
+                <span class="p-search__switch" aria-hidden="true"></span>
+            </label>
+            {% do form.show_map.setRendered %}
         </div>
 
         {% if form.vars.errors|length > 0 %}
@@ -124,13 +132,6 @@
                     </button>
                 {% endfor %}
             </div>
-            <label class="p-search__map-switch" for="{{ form.show_map.vars.id }}">
-                <span>{{ form.show_map.vars.label|trans }}</span>
-                <input type="checkbox" role="switch" class="show_map js-search-map-switch" id="{{ form.show_map.vars.id }}"
-                       name="{{ form.show_map.vars.full_name }}" value="1"{% if showMap %} checked{% endif %}>
-                <span class="p-search__switch" aria-hidden="true"></span>
-            </label>
-            {% do form.show_map.setRendered %}
             {# The old "show options" switch: kept so the preference is not lost. #}
             {% if form.show_options.vars.checked %}<input type="hidden" name="{{ form.show_options.vars.full_name }}" value="1">{% endif %}
             {% do form.show_options.setRendered %}
