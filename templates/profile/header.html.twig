@@ -278,7 +278,9 @@
     </div>
   </div>{# /.p-pro__wrap #}
 
-  {# ── Tabs (stuck to the top on phones) ── #}
+</div>{# /.p-pro #}
+
+{# ── Tabs: outside the header block so that on phones they stay stuck to the top all the way down ── #}
   {% set activeItem = submenu.active is defined and submenu.active != '' ? submenu.active : 'profile' %}
   <div class="p-pro__tabs-wrap">
     <div class="container-lg">
@@ -320,5 +322,3 @@
       {% endif %}
     </div>
   {% endif %}
-
-</div>
