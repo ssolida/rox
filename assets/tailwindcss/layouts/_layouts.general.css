@@ -7298,7 +7298,9 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search__options-pill,
   .p-search__divider,
   .p-search__map-switch { display: none; }
-  .p-search__quick { margin: 0.75rem -1rem 0; padding: 0 1rem; }
+  /* No quick filters row on phones: the filters live in the options sheet, and the
+     number on its button says how many are in use. */
+  .p-search__quick { display: none; }
   /* Quick filters: plain words; a chosen one turns dark with a cross to remove it. */
   .p-search-pill { gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem; }
   .p-search-pill__icon { display: none; }
