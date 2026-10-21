@@ -25,8 +25,8 @@
         {% set hosting = member.accommodation in ['yes', 'no'] ? member.accommodation : null %}
         {% set commentCount = result.commentCount ?? 0 %}
         {# The last login is left out when it is unknown or kept private. #}
-        {% set lastActive = member.lastActive|privacy %}
-        {% if lastActive == 'lastloginprivacy'|trans %}{% set lastActive = null %}{% endif %}
+        {# The privacy filter hides logins of the last 7 days; show nothing then. #}
+        {% set lastActive = member.lastActive and member.lastActive.diffInDays() > 7 ? member.lastActive|privacy : null %}
 
         <article class="p-search-card">
             <a class="p-search-card__avatar" href="{{ profileUrl }}" tabindex="-1" aria-hidden="true">
@@ -92,7 +92,7 @@
                     <i class="far fa-clock" aria-hidden="true"></i>
                     {%- if lastActive %}
                         {# On phones a dot (green when active in the last week) stands for "Last login". #}
-                        {% set recent = member.lastActive and member.lastActive > date('-7 days') %}
+                        {% set recent = member.lastActive.diffInDays() <= 30 %}
                         <span class="p-search-card__online{{ recent ? ' is-recent' : '' }}" aria-hidden="true"></span>
                         <span><span class="p-search-card__login-label">{{ 'search.last.login'|trans|trim(': ') }}</span> <strong>{{ lastActive }}</strong></span>
                     {%- endif -%}
