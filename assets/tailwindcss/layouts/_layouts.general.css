@@ -6803,36 +6803,39 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-results__empty i { margin-bottom: 0.75rem; color: #cbd5e1; font-size: 2rem; }
 .p-search-results__empty p { max-width: 28rem; margin: 0 auto; }
 
-/* One member per card: photo on the left; name, hosting icon, facts, "About me",
-   occupation and a footer (comments, last login, membership) on the right.
-   The name's link covers the whole card. */
+/* One member per card: photo with the hosting badge on it; name and gender/age,
+   occupation in orange, last login and membership; comments on the top right;
+   "About me" under it all. The name's link covers the whole card. */
 .p-search-results__cards { gap: 0.9rem; overflow: visible; border-radius: 0; background: transparent; box-shadow: none; }
 .p-search-card {
   position: relative;
   display: grid;
   grid-template-columns: 6rem minmax(0, 1fr) auto;
   grid-template-areas:
-    "avatar head host"
-    "avatar about about"
-    "avatar foot foot";
+    "avatar title pill"
+    "avatar occupation occupation"
+    "avatar meta meta"
+    "avatar foot foot"
+    "about about about";
   align-content: start;
-  column-gap: 1.25rem;
-  padding: 1.35rem 1.5rem 1.1rem;
+  align-items: center;
+  column-gap: 1.5rem;
+  padding: 1.5rem 1.5rem 1.35rem;
   border-radius: 1rem;
   background: #fff;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(15, 23, 42, 0.05);
   transition: box-shadow 0.15s ease;
 }
 .p-search-card:hover { background: #fff; box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.06); }
-.p-search-card__avatar { grid-area: avatar; align-self: start; }
+.p-search-card__avatar { position: relative; grid-area: avatar; align-self: center; }
 .p-search-card__avatar img { display: block; width: 6rem; height: 6rem; border-radius: 50%; object-fit: cover; background: #f1f5f9; box-shadow: 0 0 0 1px #e2e8f0; }
-.p-search-card__head { grid-area: head; min-width: 0; }
-.p-search-card__title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.6rem; margin: 0; }
+.p-search-card__head { display: contents; }
+.p-search-card__title { grid-area: title; align-self: end; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.6rem; margin: 0; }
 .p-search-card__name,
 .p-search-card__name:hover { color: #0f172a; font-family: var(--font-signika, "Signika", sans-serif); font-size: 1.3rem; font-weight: 700; line-height: 1.25; text-decoration: none; }
 .p-search-card__name::after { content: ""; position: absolute; inset: 0; }
 .p-search-card__username { color: #64748b; font-size: 0.9375rem; }
-.p-search-card__meta { margin: 0.2rem 0 0; overflow: hidden; color: #64748b; font-size: 0.9375rem; text-overflow: ellipsis; white-space: nowrap; }
+.p-search-card__meta { grid-area: meta; margin: 0.2rem 0 0; overflow: hidden; color: #64748b; font-size: 0.9375rem; text-overflow: ellipsis; white-space: nowrap; }
 .p-search-card__meta i,
 .p-search-card__meta svg { margin-right: 0.2rem; color: #f37000; }
 /* Gender and age: one small badge next to the name, tinted by gender. */
@@ -6857,25 +6860,52 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card__host { display: inline-flex; align-items: center; justify-content: center; font-size: 1.05rem; }
 .p-search-card__host--yes { color: #2f8a4a; }
 .p-search-card__host--no { color: #475569; }
-.p-search-card > .p-search-card__host { grid-area: host; align-self: start; width: 2.75rem; height: 2.75rem; border-radius: 999px; }
-.p-search-card > .p-search-card__host--yes { background: #dcfce7; }
-.p-search-card > .p-search-card__host--no { background: #eef2f7; }
-.p-search-card .p-search-card__about { display: -webkit-box; grid-area: about; margin: 0.55rem 0 0; overflow: hidden; color: #334155; font-size: 1rem; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-.p-search-card .p-search-card__occupation { margin: 0.25rem 0 0; overflow: hidden; color: #334155; font-size: 0.9375rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+/* Hosting: a round badge on the bottom right of the photo. */
+.p-search-card > .p-search-card__host {
+  grid-area: avatar;
+  align-self: end;
+  justify-self: end;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: 0 -0.15rem -0.15rem 0;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.875rem;
+}
+.p-search-card > .p-search-card__host--yes { background: #3fa75a; }
+.p-search-card > .p-search-card__host--no { background: #94a3b8; }
+.p-search-card .p-search-card__about { display: -webkit-box; grid-area: about; margin: 1.1rem 0 0; overflow: hidden; color: #334155; font-size: 0.9375rem; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.p-search-card .p-search-card__occupation { grid-area: occupation; margin: 0.2rem 0 0; overflow: hidden; color: #c2410c; font-size: 0.9375rem; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 .p-search-card__occupation i,
-.p-search-card__occupation svg { margin-right: 0.3rem; color: #94a3b8; }
-.p-search-card__foot { display: flex; flex-wrap: wrap; grid-area: foot; align-items: center; gap: 0.35rem 1.5rem; margin-top: 0.9rem; padding-top: 0.85rem; border-top: 1px solid #eef0f3; color: #64748b; font-size: 0.9375rem; }
-.p-search-card__comments { display: inline-flex; align-items: center; gap: 0.45rem; color: #64748b; font-weight: 600; }
-.p-search-card__comments.has-comments,
-.p-search-card__comments i,
-.p-search-card__comments svg { color: #c2410c; }
-.p-search-card__activity { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.45rem; }
-.p-search-card__activity strong { color: #334155; font-weight: 600; }
+.p-search-card__occupation svg { display: none; }
+.p-search-card__foot { display: flex; flex-wrap: wrap; grid-area: foot; align-items: center; gap: 0.35rem 1.5rem; margin-top: 0.35rem; color: #64748b; font-size: 0.9375rem; }
+.p-search-card__comments { display: none; }
+.p-search-card__activity { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.45rem; color: #64748b; }
+.p-search-card__activity strong { color: inherit; font-weight: 400; }
 .p-search-card__activity > i,
-.p-search-card__activity > svg { color: #94a3b8; }
+.p-search-card__activity > svg { display: none; }
 .p-search-card__dot { color: #cbd5e1; }
-.p-search-card__comments-pill { display: none; }
-.p-search-card__online { display: none; }
+.p-search-card__online { display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: #cbd5e1; }
+.p-search-card__online.is-recent { background: #4cbb6c; }
+/* Comments: a small pill on the top right. */
+.p-search-card__comments-pill {
+  display: inline-flex;
+  grid-area: pill;
+  align-items: center;
+  align-self: start;
+  gap: 0.4rem;
+  margin-left: 0.75rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.p-search-card__comments-pill.has-comments { background: #fff1e6; color: #c2410c; }
+.p-search-card__comments-pill.has-comments i,
+.p-search-card__comments-pill.has-comments svg { color: #ea7a2e; }
 
 .p-search-badge {
   display: inline-flex;
@@ -7425,61 +7455,18 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
     box-shadow: none;
   }
   .p-search-card:hover { box-shadow: none; }
-  .p-search-card__avatar { position: relative; align-self: center; }
   .p-search-card__avatar img { width: 5.25rem; height: 5.25rem; }
-  .p-search-card__head { display: contents; }
-  .p-search-card__title { grid-area: title; align-self: end; }
   .p-search-card__name { font-size: 1.2rem; }
   .p-search-card__who { font-size: 0.8125rem; }
-  .p-search-card__username,
-  .p-search-card__head .p-search-card__host,
-  .p-search-card__comments { display: none; }
-  /* Hosting: a round badge on the bottom right of the photo. */
-  .p-search-card > .p-search-card__host {
-    display: inline-flex;
-    grid-area: avatar;
-    align-self: end;
-    justify-self: end;
-    width: 2rem;
-    height: 2rem;
-    margin: 0 -0.1rem -0.1rem 0;
-    border: 3px solid #fff;
-    color: #fff;
-    font-size: 0.75rem;
-  }
-  .p-search-card > .p-search-card__host--yes { background: #3fa75a; }
-  .p-search-card > .p-search-card__host--no { background: #94a3b8; }
-  .p-search-card .p-search-card__occupation { grid-area: occupation; margin-top: 0.15rem; color: #c2410c; font-size: 0.9375rem; font-weight: 600; }
-  .p-search-card__occupation i,
-  .p-search-card__occupation svg { display: none; }
-  .p-search-card__meta { grid-area: meta; font-size: 0.875rem; }
-  .p-search-card__foot { align-self: start; margin-top: 0.3rem; padding-top: 0; border-top: 0; font-size: 0.875rem; }
-  .p-search-card__activity { color: #64748b; }
-  .p-search-card__activity > i,
-  .p-search-card__activity > svg,
-  .p-search-card__login-label { display: none; }
-  .p-search-card__activity strong { color: inherit; font-weight: 400; }
-  .p-search-card__online { display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: #cbd5e1; }
-  .p-search-card__online.is-recent { background: #4cbb6c; }
+  .p-search-card__username { display: none; }
+  .p-search-card > .p-search-card__host { width: 2rem; height: 2rem; margin: 0 -0.1rem -0.1rem 0; font-size: 0.75rem; }
+  .p-search-card .p-search-card__occupation { margin-top: 0.15rem; }
+  .p-search-card__meta { font-size: 0.875rem; }
+  .p-search-card__foot { align-self: start; margin-top: 0.3rem; font-size: 0.875rem; }
+  .p-search-card__login-label,
   .p-search-card__activity.is-since-only { display: none; }
-  .p-search-card .p-search-card__about { margin-top: 0.85rem; font-size: 0.9375rem; }
-  .p-search-card__comments-pill {
-    display: inline-flex;
-    grid-area: pill;
-    align-items: center;
-    align-self: end;
-    gap: 0.4rem;
-    margin-left: 0.75rem;
-    padding: 0.35rem 0.8rem;
-    border-radius: 999px;
-    background: #f1f5f9;
-    color: #64748b;
-    font-size: 0.875rem;
-    font-weight: 700;
-  }
-  .p-search-card__comments-pill.has-comments { background: #fff1e6; color: #c2410c; }
-  .p-search-card__comments-pill.has-comments i,
-  .p-search-card__comments-pill.has-comments svg { color: #ea7a2e; }
+  .p-search-card .p-search-card__about { margin-top: 0.85rem; }
+  .p-search-card__comments-pill { align-self: end; padding: 0.35rem 0.8rem; }
 
   /* Search options as a sheet from the bottom */
   .p-search-options {
