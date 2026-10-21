@@ -6668,7 +6668,7 @@ body.has-search-overlay { overflow: hidden; }
 .p-search__options-btn .p-search__options-count { position: absolute; top: -0.2rem; right: -0.2rem; box-shadow: 0 0 0 2px #fff; }
 .p-search__bar > .p-search__map-switch { margin-left: 0.5rem; }
 /* The quick filters row is gone: those filters are in the options panel. */
-.p-search__quick { display: none; }
+.p-search .p-search__quick { display: none; }
 
 .p-search__errors { margin: 0.6rem 0 0; padding: 0 0 0 1.1rem; color: #b91c1c; font-size: 0.875rem; list-style: none; }
 .p-search__errors i { margin-right: 0.3rem; }
