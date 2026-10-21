@@ -91,7 +91,10 @@
                 <span class="p-search-card__activity{{ lastActive ? '' : ' is-since-only' }}">
                     <i class="far fa-clock" aria-hidden="true"></i>
                     {%- if lastActive %}
-                        <span>{{ 'search.last.login'|trans|trim(': ') }} <strong>{{ lastActive }}</strong></span>
+                        {# On phones a dot (green when active in the last week) stands for "Last login". #}
+                        {% set recent = member.lastActive and member.lastActive > date('-7 days') %}
+                        <span class="p-search-card__online{{ recent ? ' is-recent' : '' }}" aria-hidden="true"></span>
+                        <span><span class="p-search-card__login-label">{{ 'search.last.login'|trans|trim(': ') }}</span> <strong>{{ lastActive }}</strong></span>
                     {%- endif -%}
                     {%- if member.created -%}
                         {%- if lastActive %}<span class="p-search-card__dot p-search-card__since-dot" aria-hidden="true">·</span>{% endif -%}
