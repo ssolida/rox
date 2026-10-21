@@ -6995,9 +6995,7 @@ body.has-search-overlay { overflow: hidden; }
 
 /* Member preview: a drawer over the map on large screens, a sheet from the bottom on phones */
 .p-search-card.is-previewed { background: #fff3e6; }
-/* The rest of the screen is dimmed; a click on it closes the preview. */
-.p-search-preview__backdrop { position: fixed; inset: 0; z-index: 2040; display: block; background: rgba(15, 23, 42, 0.35); }
-.p-search-preview__backdrop[hidden] { display: none; }
+.p-search-preview__backdrop { display: none; }
 .p-search-preview {
   position: fixed;
   top: 0;
@@ -7149,6 +7147,8 @@ body.has-search-overlay { overflow: hidden; }
 @keyframes p-search-preview-spin { to { transform: rotate(360deg); } }
 .p-search-preview .p-search-preview__error { margin: 6rem 1.5rem; color: #64748b; text-align: center; }
 @media (max-width: 767.98px) {
+  .p-search-preview__backdrop { position: fixed; inset: 0; z-index: 2040; display: block; background: rgba(15, 23, 42, 0.35); }
+  .p-search-preview__backdrop[hidden] { display: none; }
   .p-search-preview {
     top: auto;
     left: 0;
