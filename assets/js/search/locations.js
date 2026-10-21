@@ -443,8 +443,8 @@ function showPreview() {
     preview.classList.add('is-open');
     preview.setAttribute('aria-hidden', 'false');
     previewBackdrop.hidden = false;
-    // Phones only: on large screens the results stay usable next to the drawer.
-    document.body.classList.toggle('has-search-overlay', phone.matches);
+    // The page behind stays still while the preview is open (it is dimmed, a click on it closes the preview).
+    document.body.classList.add('has-search-overlay');
 }
 
 function hidePreview() {

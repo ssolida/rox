@@ -6995,7 +6995,9 @@ body.has-search-overlay { overflow: hidden; }
 
 /* Member preview: a drawer over the map on large screens, a sheet from the bottom on phones */
 .p-search-card.is-previewed { background: #fff3e6; }
-.p-search-preview__backdrop { display: none; }
+/* The rest of the screen is dimmed; a click on it closes the preview. */
+.p-search-preview__backdrop { position: fixed; inset: 0; z-index: 2040; display: block; background: rgba(15, 23, 42, 0.35); }
+.p-search-preview__backdrop[hidden] { display: none; }
 .p-search-preview {
   position: fixed;
   top: 0;
@@ -7030,7 +7032,10 @@ body.has-search-overlay { overflow: hidden; }
   pointer-events: auto;
 }
 .p-search-preview__close:hover { background: #fff; color: #c2410c; }
-.p-search-preview__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.p-search-preview__body { display: flex; flex: 1; flex-direction: column; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.p-search-preview__body > * { flex-shrink: 0; }
+/* The content takes the free height, so "See the full profile" always sits at the bottom. */
+.p-search-preview__body > .p-search-preview__content { flex-grow: 1; }
 /* The member's pictures: full width, one at a time, swipe or arrows */
 .p-search-preview__photos { position: relative; background: #0f172a; }
 .p-search-preview__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
@@ -7144,8 +7149,6 @@ body.has-search-overlay { overflow: hidden; }
 @keyframes p-search-preview-spin { to { transform: rotate(360deg); } }
 .p-search-preview .p-search-preview__error { margin: 6rem 1.5rem; color: #64748b; text-align: center; }
 @media (max-width: 767.98px) {
-  .p-search-preview__backdrop { position: fixed; inset: 0; z-index: 2040; display: block; background: rgba(15, 23, 42, 0.35); }
-  .p-search-preview__backdrop[hidden] { display: none; }
   .p-search-preview {
     top: auto;
     left: 0;
