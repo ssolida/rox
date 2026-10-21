@@ -7160,11 +7160,14 @@ body.has-search-overlay { overflow: hidden; }
     box-shadow: 0 -12px 32px rgba(15, 23, 42, 0.18);
     transform: translateY(100%);
   }
-  .p-search-preview__bar { position: relative; flex-shrink: 0; justify-content: flex-end; height: 2.75rem; padding: 0.5rem 0.75rem; background: #fff; pointer-events: auto; touch-action: none; }
+  /* The bar (grip and close) lies over the top of the sheet, so the pictures reach the top edge. */
+  .p-search-preview__bar { justify-content: flex-end; height: 3rem; padding: 0.6rem 0.75rem; pointer-events: auto; touch-action: none; }
   .p-search-preview__grip { position: absolute; top: 0.55rem; left: 50%; display: block; width: 2.5rem; height: 0.25rem; border-radius: 999px; background: #cbd5e1; transform: translateX(-50%); }
-  .p-search-preview__close { width: 2rem; height: 2rem; background: #f1f5f9; box-shadow: none; }
+  .p-search-preview__close { width: 2rem; height: 2rem; }
+  .p-search-preview:has(.p-search-preview__photos) .p-search-preview__grip { background: rgba(255, 255, 255, 0.85); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3); }
+  .p-search-preview__counter { top: 0.75rem; left: 0.75rem; }
   .p-search-preview__content { padding: 1rem 1.25rem 1.5rem; }
-  .p-search-preview__body > .p-search-preview__content:first-child { padding-top: 0.5rem; }
+  .p-search-preview__body > .p-search-preview__content:first-child { padding-top: 2.75rem; }
   .p-search-preview__name { font-size: 1.35rem; }
 }
 @media (prefers-reduced-motion: reduce) {
