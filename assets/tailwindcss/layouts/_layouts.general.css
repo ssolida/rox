@@ -9173,6 +9173,11 @@ a.p-pro-filter__item:hover { background: #fff; }
   .p-pro__tile--host-no .p-pro__tile-text { flex-direction: row; align-items: center; justify-content: space-between; gap: 0.5rem; }
   .p-pro__tile--languages,
   .p-pro__tile--languages:hover { min-height: 0; padding: 0; background: none; }
+  /* Languages on one line, swiped sideways when they don't fit */
+  .p-pro__tile--languages { min-width: 0; }
+  .p-pro__langs { flex: 1; flex-wrap: nowrap; min-width: 0; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .p-pro__langs::-webkit-scrollbar { display: none; }
+  .p-pro__langs li { flex-shrink: 0; white-space: nowrap; }
 
   /* Tabs stuck under the top bar while the page scrolls */
   .p-pro__tabs-wrap { position: sticky; top: var(--bw-topbar-offset, 64px); z-index: 20; }
