@@ -75,13 +75,13 @@
             {% if member.maxGuests != 0 %}
               <div class="p-pro-stat">
                 <i class="fas fa-user-friends p-pro-stat__icon" aria-hidden="true"></i>
-                <span class="p-pro-stat__label">{{ 'profile.max.guests'|trans({}, 'messages', profile_language)|raw }}</span>
+                <span class="p-pro-stat__label">{{ 'profile.max.guests.short'|trans({}, 'messages', profile_language) }}</span>
                 <strong class="p-pro-stat__value">{{ member.maxGuests }}</strong>
               </div>
             {% endif %}
             <div class="p-pro-stat">
               <i class="fas fa-star p-pro-stat__icon p-pro-stat__icon--star" aria-hidden="true"></i>
-              <span class="p-pro-stat__label">{{ 'profile.hosting_interest'|trans({}, 'messages', profile_language)|raw }}</span>
+              <span class="p-pro-stat__label">{{ 'profile.hosting_interest'|trans({}, 'messages', profile_language)|striptags|trim(' :') }}</span>
               <strong class="p-pro-stat__value">{{ macros.hostingInterest(member.hostingInterest, profile_language) }}</strong>
             </div>
             {% if wheelchair %}

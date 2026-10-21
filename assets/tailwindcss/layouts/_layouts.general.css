@@ -9079,10 +9079,11 @@ a.p-pro__tile--comments:hover { border-color: #e2e8f0; background: #f8fafc; }
 /* Accommodation: three tiles, then the details */
 .p-pro-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
 .p-pro-stat { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.8rem 0.9rem; border-radius: 0.8rem; background: #f6f7f9; }
-.p-pro-stat__icon { margin-bottom: 0.3rem; color: #64748b; font-size: 0.9rem; }
+.p-pro-stat__icon { align-self: flex-start; margin: 0 0 0.35rem; color: #64748b; font-size: 0.9rem; }
 .p-pro-stat__icon--star { color: #ea7a2e; }
 .p-pro-stat__label { color: #64748b; font-size: 0.75rem; }
 .p-pro-stat__value { color: #0f172a; font-size: 0.9375rem; font-weight: 700; }
+.p-pro-stat__value::first-letter { text-transform: uppercase; }
 .p-pro-stat--access { background: #eef4ff; }
 .p-pro-stat--access .p-pro-stat__icon,
 .p-pro-stat--access .p-pro-stat__value { color: #1d4ed8; }
