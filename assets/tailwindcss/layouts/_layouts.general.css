@@ -7071,6 +7071,8 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-preview__host--yes { background: #3fa75a; }
 .p-search-preview__host--no { background: #94a3b8; }
 .p-search-preview__names { min-width: 0; padding-bottom: 0.2rem; }
+/* Under the pictures: the name starts a little below them, next to the overlapping photo. */
+.p-search-preview__photos + .p-search-preview__content .p-search-preview__names { align-self: flex-start; padding: 4rem 0 0; }
 .p-search-preview .p-search-preview__title { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; margin: 0; }
 .p-search-preview__name { color: #0f172a; font-family: var(--font-signika, "Signika", sans-serif); font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
 .p-search-preview .p-search-preview__username { margin: 0.2rem 0 0; color: #94a3b8; font-size: 0.9375rem; }
