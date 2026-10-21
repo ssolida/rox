@@ -97,7 +97,7 @@
                     {%- endif -%}
                     {%- if member.created -%}
                         {%- if lastActive %}<span class="p-search-card__dot p-search-card__since-dot" aria-hidden="true">·</span>{% endif -%}
-                        <span class="p-search-card__since">{{ 'search.member.for'|trans({ duration: member.created.diffForHumans({ syntax: 1 }) }) }}</span>
+                        <span class="p-search-card__since">{{ 'search.member.joined'|trans({ year: member.created|date('Y') }) }}</span>
                     {%- endif -%}
                 </span>
             </div>
