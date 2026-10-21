@@ -7437,16 +7437,16 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
 
   /* Phones: white rows across the whole width split by a thin grey line. Photo with the hosting
      badge on it; name and gender/age, occupation in orange, last login and membership;
-     "About me" under it with the comments next to it. */
+     comments on the top right; "About me" under it. */
   .p-search-results__cards { gap: 1px; margin: 0 -1rem; border-top: 0; background: #e2e8f0; }
   .p-search-card {
     grid-template-columns: 5.25rem minmax(0, 1fr) auto;
     grid-template-areas:
-      "avatar title title"
+      "avatar title pill"
       "avatar occupation occupation"
       "avatar meta meta"
       "avatar foot foot"
-      "about about pill";
+      "about about about";
     align-items: center;
     column-gap: 1rem;
     padding: 1.1rem 1rem 1rem;
@@ -7465,7 +7465,7 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-card__login-label,
   .p-search-card__activity.is-since-only { display: none; }
   .p-search-card .p-search-card__about { margin-top: 0.85rem; }
-  .p-search-card__comments-pill { align-self: end; padding: 0.35rem 0.8rem; }
+  .p-search-card__comments-pill { margin-left: 0.5rem; padding: 0.3rem 0.7rem; }
 
   /* Search options as a sheet from the bottom */
   .p-search-options {
