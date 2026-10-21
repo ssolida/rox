@@ -24,7 +24,9 @@
         {% set profileUrl = path('members_profile', { username: member.username }) %}
         {% set hosting = member.accommodation in ['yes', 'no'] ? member.accommodation : null %}
         {% set commentCount = result.commentCount ?? 0 %}
+        {# The last login is left out when it is unknown or kept private. #}
         {% set lastActive = member.lastActive|privacy %}
+        {% if lastActive == 'lastloginprivacy'|trans %}{% set lastActive = null %}{% endif %}
 
         <article class="p-search-card">
             <a class="p-search-card__avatar" href="{{ profileUrl }}" tabindex="-1" aria-hidden="true">
