@@ -6691,6 +6691,23 @@ body.has-search-overlay { overflow: hidden; }
 }
 .p-search-pill:hover { border-color: #cbd5e1; background: #f8fafc; }
 .p-search-pill.is-active { border-color: #fdba74; background: #fff7ed; color: #c2410c; }
+.p-search-pill__off { display: none; }
+/* Number of filters in use, on the options button. */
+.p-search__options-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: #ea7a2e;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.p-search-results .p-search-results__count strong { color: #0f172a; font-weight: 700; }
 
 .p-search__map-switch {
   display: inline-flex;
@@ -7169,8 +7186,8 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
 /* Phones: location pill + options button, List / Map switch, options as a bottom sheet */
 @media (max-width: 767.98px) {
   body:has(.p-search),
-  body:has(.p-search) main { background: #f8fafc; }
-  .p-search__top { padding: 0.75rem 1rem 0.6rem; }
+  body:has(.p-search) main { background: #fff; }
+  .p-search__top { padding: 0.75rem 1rem; border-bottom: 1px solid #eef0f3; background: #fff; }
   .p-search__bar { gap: 0.6rem; }
   .p-search-where { min-height: 3.1rem; padding: 0.3rem 0.5rem 0.3rem 1rem; border-color: #f1f5f9; background: #f1f5f9; }
   .p-search-where__display { background: #f1f5f9; }
@@ -7196,6 +7213,7 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-where .auto-search-wrapper input:focus { height: 2.5rem; }
   .p-search-where .auto-clear { bottom: 0.25rem; }
   .p-search__options-btn {
+    position: relative;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
@@ -7207,8 +7225,10 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
     border-radius: 50%;
     background: #fff;
     color: #0f172a;
+    font-size: 1.05rem;
     cursor: pointer;
   }
+  .p-search__options-btn .p-search__options-count { position: absolute; top: -0.2rem; right: -0.2rem; box-shadow: 0 0 0 2px #fff; }
 
   /* Typing the place takes the whole screen (above the top bar too) */
   /* The top bar (#main_menu) sits at z-index 2000. */
@@ -7278,15 +7298,42 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search__options-pill,
   .p-search__divider,
   .p-search__map-switch { display: none; }
-  .p-search__quick { margin: 0.6rem -1rem 0; padding: 0 1rem; }
+  .p-search__quick { margin: 0.75rem -1rem 0; padding: 0 1rem; }
+  /* Quick filters: plain words; a chosen one turns dark with a cross to remove it. */
+  .p-search-pill { gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem; }
+  .p-search-pill__icon { display: none; }
+  .p-search-pill.is-active { border-color: #0f172a; background: #0f172a; color: #fff; }
+  .p-search-pill.is-active .p-search-pill__off { display: inline-block; font-size: 0.75em; opacity: 0.75; }
 
   .p-search__body,
   .p-search.is-map-off .p-search__body { display: block; }
   .p-search-results,
   .p-search.is-map-off .p-search-results { padding: 1rem 1rem 1.5rem; }
-  .p-search-results__head { gap: 0.6rem; }
-  .p-search-results .p-search-results__count { font-size: 0.8125rem; }
-  .p-search-results__view { display: inline-flex; padding: 0.2rem; border-radius: 0.75rem; background: #e2e8f0; }
+  /* One line: number of members, the sort (an icon and the chosen order) and List / Map. */
+  .p-search-results__head { flex-wrap: nowrap; gap: 0.75rem; }
+  .p-search-results .p-search-results__count { flex-shrink: 0; font-size: 0.9375rem; }
+  .p-search-results__view { display: inline-flex; flex-shrink: 0; order: 2; padding: 0.2rem; border-radius: 0.75rem; background: #f1f5f9; }
+  .p-search-results__view-label { display: none; }
+  .p-search-results .p-search-results__order { order: 1; width: auto; min-width: 0; margin-left: auto; gap: 0.35rem; }
+  .p-search-results__order label { display: none; }
+  .p-search-results__order .p-search-results__direction { order: -1; width: auto; height: auto; border: 0; background: none; color: #64748b; }
+  .p-search .p-search-results__order .p-search-select {
+    width: auto;
+    min-width: 0;
+    max-width: 9rem;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background: none;
+    color: #0f172a;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    box-shadow: none;
+    appearance: none;
+  }
   .p-search-results__view-btn {
     display: inline-flex;
     align-items: center;
@@ -7300,7 +7347,6 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
     font-weight: 600;
   }
   .p-search-results__view-btn.is-active { background: #fff; color: #0f172a; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1); }
-  .p-search-results__order { width: 100%; }
 
   .p-search__map,
   .p-search.is-map-off .p-search__map { display: none; }
