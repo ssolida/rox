@@ -6811,11 +6811,16 @@ body.has-search-overlay { overflow: hidden; }
   position: relative;
   display: grid;
   grid-template-columns: 6rem minmax(0, 1fr) auto;
+  /* The empty rows above and below the text take the photo's extra height,
+     so the text lines stay together, centred next to the photo. */
+  grid-template-rows: 1fr auto auto auto auto 1fr auto;
   grid-template-areas:
+    "avatar . ."
     "avatar title pill"
     "avatar occupation occupation"
     "avatar meta meta"
     "avatar foot foot"
+    "avatar . ."
     "about about about";
   align-content: start;
   align-items: center;
@@ -7441,12 +7446,6 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-results__cards { gap: 1px; margin: 0 -1rem; border-top: 0; background: #e2e8f0; }
   .p-search-card {
     grid-template-columns: 5.25rem minmax(0, 1fr) auto;
-    grid-template-areas:
-      "avatar title pill"
-      "avatar occupation occupation"
-      "avatar meta meta"
-      "avatar foot foot"
-      "about about about";
     align-items: center;
     column-gap: 1rem;
     padding: 1.1rem 1rem 1rem;
