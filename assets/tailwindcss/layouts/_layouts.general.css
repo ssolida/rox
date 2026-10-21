@@ -6827,7 +6827,7 @@ body.has-search-overlay { overflow: hidden; }
   transition: box-shadow 0.15s ease;
 }
 .p-search-card:hover { background: #fff; box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.06); }
-.p-search-card__avatar { position: relative; grid-area: avatar; align-self: center; }
+.p-search-card__avatar { position: relative; grid-area: avatar; align-self: center; width: fit-content; }
 .p-search-card__avatar img { display: block; width: 6rem; height: 6rem; border-radius: 50%; object-fit: cover; background: #f1f5f9; box-shadow: 0 0 0 1px #e2e8f0; }
 .p-search-card__head { display: contents; }
 .p-search-card__title { grid-area: title; align-self: end; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.6rem; margin: 0; }
@@ -6861,20 +6861,19 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card__host--yes { color: #2f8a4a; }
 .p-search-card__host--no { color: #475569; }
 /* Hosting: a round badge on the bottom right of the photo. */
-.p-search-card > .p-search-card__host {
-  grid-area: avatar;
-  align-self: end;
-  justify-self: end;
+.p-search-card__avatar .p-search-card__host {
+  position: absolute;
+  right: -0.15rem;
+  bottom: -0.15rem;
   width: 2.4rem;
   height: 2.4rem;
-  margin: 0 -0.15rem -0.15rem 0;
   border: 3px solid #fff;
   border-radius: 999px;
   color: #fff;
   font-size: 0.875rem;
 }
-.p-search-card > .p-search-card__host--yes { background: #3fa75a; }
-.p-search-card > .p-search-card__host--no { background: #94a3b8; }
+.p-search-card__avatar .p-search-card__host--yes { background: #3fa75a; }
+.p-search-card__avatar .p-search-card__host--no { background: #94a3b8; }
 .p-search-card .p-search-card__about { display: -webkit-box; grid-area: about; margin: 1.1rem 0 0; overflow: hidden; color: #334155; font-size: 0.9375rem; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .p-search-card .p-search-card__occupation { grid-area: occupation; margin: 0.2rem 0 0; overflow: hidden; color: #c2410c; font-size: 0.9375rem; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 .p-search-card__occupation i,
@@ -7459,7 +7458,7 @@ legend.p-search-options__label { float: none; width: auto; padding: 0; }
   .p-search-card__name { font-size: 1.2rem; }
   .p-search-card__who { font-size: 0.8125rem; }
   .p-search-card__username { display: none; }
-  .p-search-card > .p-search-card__host { width: 2rem; height: 2rem; margin: 0 -0.1rem -0.1rem 0; font-size: 0.75rem; }
+  .p-search-card__avatar .p-search-card__host { right: -0.1rem; bottom: -0.1rem; width: 2rem; height: 2rem; font-size: 0.75rem; }
   .p-search-card .p-search-card__occupation { margin-top: 0.15rem; }
   .p-search-card__meta { font-size: 0.875rem; }
   .p-search-card__foot { align-self: start; margin-top: 0.3rem; font-size: 0.875rem; }

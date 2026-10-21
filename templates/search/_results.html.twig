@@ -31,6 +31,11 @@
         <article class="p-search-card">
             <a class="p-search-card__avatar" href="{{ profileUrl }}" tabindex="-1" aria-hidden="true">
                 <img src="{{ path('avatar', { username: member.username, size: 192 }) }}" alt="" loading="lazy">
+                {% if hosting %}
+                    <span class="p-search-card__host p-search-card__host--{{ hosting }}">
+                        <i class="fas {{ hosting == 'yes' ? 'fa-house-circle-check' : 'fa-house-circle-xmark' }}"></i>
+                    </span>
+                {% endif %}
             </a>
 
             <div class="p-search-card__head">
@@ -67,12 +72,6 @@
                     <p class="p-search-card__occupation"><i class="fas fa-briefcase" aria-hidden="true"></i> <span class="visually-hidden">{{ 'profile.occupation'|trans }}:</span> {{ occupation }}</p>
                 {% endif %}
             </div>
-
-            {% if hosting %}
-                <span class="p-search-card__host p-search-card__host--{{ hosting }}" aria-hidden="true">
-                    <i class="fas {{ hosting == 'yes' ? 'fa-house-circle-check' : 'fa-house-circle-xmark' }}"></i>
-                </span>
-            {% endif %}
 
             {# Comments: a small pill at the top right on phones, a line at the bottom on larger screens. #}
             <span class="p-search-card__comments-pill{% if commentCount %} has-comments{% endif %}">
