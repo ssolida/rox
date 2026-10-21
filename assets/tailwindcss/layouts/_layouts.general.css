@@ -6835,11 +6835,17 @@ body.has-search-overlay { overflow: hidden; }
 .p-search-card__avatar { position: relative; grid-area: avatar; align-self: center; width: fit-content; }
 .p-search-card__avatar img { display: block; width: 6rem; height: 6rem; border-radius: 50%; object-fit: cover; background: #f1f5f9; box-shadow: 0 0 0 1px #e2e8f0; }
 .p-search-card__head { display: contents; }
-.p-search-card__title { grid-area: title; align-self: end; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.6rem; margin: 0; }
+.p-search-card__title { grid-area: title; align-self: end; min-width: 0; display: flex; align-items: baseline; gap: 0.6rem; margin: 0; }
 .p-search-card__name,
 .p-search-card__name:hover { color: #0f172a; font-family: var(--font-signika, "Signika", sans-serif); font-size: 1.3rem; font-weight: 700; line-height: 1.25; text-decoration: none; }
 .p-search-card__name::after { content: ""; position: absolute; inset: 0; }
 .p-search-card__username { color: #64748b; font-size: 0.9375rem; }
+/* One line: the gender/age badge stays next to the name, a long name ends with "…". */
+.p-search-card__title .p-search-card__name,
+.p-search-card__username { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.p-search-card__title .p-search-card__name { flex: 0 1 auto; }
+.p-search-card__username { flex: 0 10 auto; }
+.p-search-card__title > :not(.p-search-card__name, .p-search-card__username) { flex-shrink: 0; }
 .p-search-card__meta { grid-area: meta; margin: 0.2rem 0 0; overflow: hidden; color: #64748b; font-size: 0.9375rem; text-overflow: ellipsis; white-space: nowrap; }
 .p-search-card__meta i,
 .p-search-card__meta svg { margin-right: 0.2rem; color: #f37000; }
