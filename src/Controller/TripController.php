@@ -160,6 +160,12 @@ class TripController extends AbstractController
                 $this->entityManager->flush();
                 $this->tripModel->notifyHostsAboutTrip($trip);
 
+                // From the side panel of My trips: the trip again in the panel, as edited
+                $firstLeg = $trip->getLegs()->first();
+                if ($request->query->getBoolean('embed') && $firstLeg) {
+                    return $this->redirectToRoute('trip_leg_panel', ['id' => $firstLeg->getId(), 'embed' => 1, 'from' => 'mytrips']);
+                }
+
                 $this->addTranslatedFlash('success', 'trip.edited');
 
                 return $this->redirectToRoute('trip_show', ['id' => $trip->getId()]);

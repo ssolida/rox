@@ -16,7 +16,8 @@
 {% block title %}{{ trip.summary }}{% endblock title %}
 
 {% block content %}
-    {% set stops = trip.legs|filter(stop => constant('App\\Doctrine\\LegOptionsType::PRIVATE') not in stop.options)|merge([]) %}
+    {% set own = trip.creator == myself %}
+    {% set stops = own ? trip.legs|merge([]) : trip.legs|filter(stop => constant('App\\Doctrine\\LegOptionsType::PRIVATE') not in stop.options)|merge([]) %}
     {% set _first = stops|first %}
     {% set _last = stops|last %}
     {#- Who travels, under the traveller's name: what they said (as a couple, family...), else solo or the count -#}
@@ -126,7 +127,7 @@
             {% endif %}
         </div>
 
-        {% if trip.creator != app.user %}
+        {% if not own %}
             {# Not for me (centred above the buttons): hides this trip from my visitors list; the page around the panel reloads without it #}
             <form class="c-tripv__hide-form" method="post" action="{{ path('trip_hide', { id: leg.id }) }}" target="_top">
                 <input type="hidden" name="_token" value="{{ csrf_token('hide_leg') }}">
@@ -135,6 +136,19 @@
             </form>
         {% endif %}
 
+        {% if own %}
+        {# My own trip (from My trips): edit it in the panel while it is not over, or copy it #}
+        <div class="c-contact__foot c-contact__foot--row">
+            <a class="c-contact__send c-contact__send--secondary" href="{{ path('trip_copy', { id: trip.id }) }}" target="_top">
+                <i class="fas fa-copy" aria-hidden="true"></i> {{ 'trip.copy'|trans }}
+            </a>
+            {% if not trip.isExpired %}
+                <a class="c-contact__send" href="{{ path('trip_edit', { id: trip.id, embed: 1 }) }}">
+                    <i class="fas fa-edit" aria-hidden="true"></i> {{ 'trip.edit'|trans }}
+                </a>
+            {% endif %}
+        </div>
+        {% else %}
         {# Message (round) is always there, also to agree on the dates before inviting #}
         <div class="c-contact__foot c-contact__foot--row">
             <a class="c-contact__send{% if lookingForHost %} c-contact__send--secondary c-contact__send--side c-tripv__msg{% endif %}" href="{{ path('message_new', { username: traveller.username, embed: 1, from: from, back: back }) }}" aria-label="{{ 'trip.leg.message'|trans }}">
@@ -152,6 +166,7 @@
                 {% endif %}
             {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <script>

@@ -24,6 +24,7 @@
 
 {% block javascripts %}
   {{ encore_entry_script_tags('micromodal') }}
+  {{ encore_entry_script_tags('trips') }}
 {% endblock %}
 
 {% block content %}
@@ -37,7 +38,8 @@
           <span class="p-trips-trip__icon" aria-hidden="true"><i class="fa fa-plane"></i></span>
           <div class="p-trips-trip__body">
             <p class="p-trips-trip__head">
-              <a class="p-trips-trip__title" href="{{ path('trip_show', { id: trip.id }) }}">{{ trip.summary }}</a>
+              {#- Opens the trip in the side panel, as on Visitors (the trip page without JavaScript) -#}
+              {% if first %}<a class="p-trips-trip__title js-contact-open" href="{{ path('trip_leg_panel', { id: first.id }) }}" data-title="{{ trip.summary }}">{{ trip.summary }}</a>{% else %}<a class="p-trips-trip__title" href="{{ path('trip_show', { id: trip.id }) }}">{{ trip.summary }}</a>{% endif %}
               {% if trip.isExpired %}<span class="p-trips-trip__over">{{ 'trip.over'|trans }}</span>{% endif %}
             </p>
             {% if first and last %}
@@ -70,7 +72,7 @@
           </div>
           <div class="p-trips-trip__actions">
             {% if not trip.isExpired %}
-              <a class="p-notes-card__action" href="{{ path('trip_edit', { id: trip.id }) }}" aria-label="{{ 'trip.edit'|trans }}" title="{{ 'trip.edit'|trans }}">
+              <a class="p-notes-card__action js-contact-open" href="{{ path('trip_edit', { id: trip.id }) }}" data-title="{{ trip.summary }}" aria-label="{{ 'trip.edit'|trans }}" title="{{ 'trip.edit'|trans }}">
                 <i class="fas fa-pen" aria-hidden="true"></i>
               </a>
             {% endif %}
@@ -94,6 +96,9 @@
     </div>
   {% endif %}
 </section>
+
+{# A trip opens in a side panel, as on Visitors #}
+{% include 'conversations/_contact_drawer.html.twig' with { from: 'mytrips' } %}
 {% endblock content %}
 
 {% block modals %}
