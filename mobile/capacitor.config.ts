@@ -1,14 +1,14 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 /*
- * The app is a native shell around the website: it opens SERVER_URL (www.bewelcome.org by default) in a
+ * The app is a native shell around the website: it opens SERVER_URL (bewelcome.org by default) in a
  * full-screen web view, so every page and every change to the site is in the app at once, without a release.
  * www/ only holds the page shown when the site can't be reached.
  *
  * Local test against the Docker site: SERVER_URL=http://10.0.2.2:8081 npx cap sync android
  * (10.0.2.2 is the computer as seen from the Android emulator; on a phone use the computer's LAN address).
  */
-const serverUrl = process.env.SERVER_URL ?? 'https://www.bewelcome.org';
+const serverUrl = process.env.SERVER_URL ?? 'https://bewelcome.org';
 const local = serverUrl.startsWith('http://');
 
 const config: CapacitorConfig = {

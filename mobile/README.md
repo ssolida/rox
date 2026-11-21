@@ -1,7 +1,7 @@
 # BeWelcome app (Capacitor)
 
 A native shell around the website, for Android now and iOS later. The app opens
-https://www.bewelcome.org in a full-screen web view (`server.url` in `capacitor.config.ts`), so the
+https://bewelcome.org in a full-screen web view (`server.url` in `capacitor.config.ts`), so the
 site and every change to it are in the app without a new release. `www/` only holds the page shown
 when the site can't be reached.
 
