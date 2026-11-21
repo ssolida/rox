@@ -21,3 +21,6 @@ public/bundles/
 public/main.js*
 public/service-worker.js*
 public/images/newsletters/
+
+# The native app shell (Capacitor), built on its own
+mobile/

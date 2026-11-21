@@ -1,0 +1,22 @@
+{
+  "name": "bewelcome-mobile",
+  "private": true,
+  "description": "BeWelcome native app shell (Capacitor): Android now, iOS later. It loads the website; see README.md.",
+  "scripts": {
+    "sync": "cap sync",
+    "open:android": "cap open android",
+    "run:android": "cap run android",
+    "assets": "capacitor-assets generate --android --iconBackgroundColor '#f37000' --iconBackgroundColorDark '#f37000' --splashBackgroundColor '#f37000' --splashBackgroundColorDark '#f37000'"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.6.2",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.6.2",
+    "@capacitor/status-bar": "8.0.4"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "4.0.0",
+    "@capacitor/cli": "8.6.2",
+    "typescript": "^5.9.3"
+  }
+}
